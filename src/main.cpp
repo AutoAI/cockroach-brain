@@ -25,17 +25,28 @@ using namespace sl::zed;
 using namespace std;
 
 float steerToward(float *target) {
+	float x = target[0];
+	float y = target[1];
+
+	Serial::steer(-2*x /(x*x + y*y));
 	return 0;
 }
 
 int main() {
-	// temp
+//	// temp
 	Serial::open();
-	Serial::steer(-.4);
-	usleep(2000000);
-	Serial::steer(.4);
-	Serial::close();
-	return 0;
+//	printf("hi\n");
+//	Serial::steer(-1);
+//	usleep(2000000);
+//	printf("hi\n");
+//	Serial::steer(1);
+//	usleep(2000000);
+//	printf("hi\n");
+//	Serial::steer(-1);
+//	usleep(20000000);
+//	printf("hi\n");
+//	Serial::close();
+//	return 0;
 	// end temp
 
 	Camera* camera = new Camera(HD720, 15.0);

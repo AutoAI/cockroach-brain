@@ -9,7 +9,7 @@ std::vector<double>* Serial::controlValsPtr;
 std::vector<double>* Serial::inverseRadiiPtr;
 
 void Serial::open() {
-	file = fopen("/dev/ttyACM11","w");
+	file = fopen("/dev/ttyACM0","w");
 	if(file == NULL) {
 		printf("failed to open serial port\n");
 	}
@@ -72,22 +72,27 @@ void Serial::steer(float inverseRadius) {
 	}
 
 	write(0x40 | char((controlVal + 1) * 31.5));
+	write('\n');
 }
 
 void Serial::gas(float intensity) {
 	write(0x80 | char((1 - intensity) * 63));
+	write('\n');
 }
 
 void Serial::brake(float intensity) {
 	write(0xc0 | char((intensity) * 63));
+	write('\n');
 }
 
 void Serial::kill() {
 	write(0x00);
+	write('\n');
 }
 
 void Serial::write(char controlByte) {
 	size_t result = fwrite(&controlByte, 1, 1, file);
+	printf("%x", controlByte);
 	if(result != 1) {
 		printf("failed to write a value to serial\n");
 	}
