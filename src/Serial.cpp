@@ -4,7 +4,7 @@
 
 #include <unistd.h>
 
-#define STEERING_MULTIPLIER 0.65
+#define STEERING_MULTIPLIER 2
 
 FILE* Serial::file;
 std::vector<double>* Serial::controlValsPtr;

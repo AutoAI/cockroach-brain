@@ -229,59 +229,6 @@ void CloudViewer::UpDate() {
 	glutPostRedisplay();
 }
 
-void CloudViewer::DrawRepere(vect3 pos) {
-
-	float length_ = 0.1;
-
-	glBegin(GL_LINES);
-	//! X
-	glColor3f(1, 0, 0);
-	glVertex3f(pos.x, pos.y, pos.z);
-	glVertex3f(pos.x + length_, pos.y, pos.z);
-
-	//! Y
-	glColor3f(0, 1, 0);
-	glVertex3f(pos.x, pos.y, pos.z);
-	glVertex3f(pos.x, pos.y + length_, pos.z);
-
-	//! Z
-	glColor3f(0.3f, 0.3f, 1);
-	glVertex3f(pos.x, pos.y, pos.z);
-	glVertex3f(pos.x, pos.y, pos.z + length_);
-	glEnd();
-}
-
-void CloudViewer::DrawTrapeze() {
-	glBegin(GL_LINES);
-	glColor3f(0.2f, 0.2f, 0.2f);
-
-	glVertex3f(0.0f, 0.0f, 0.0f);
-	glVertex3f(-3.5f, -2.5f, -5.0f);
-
-	glVertex3f(0.0f, 0.0f, 0.0f);
-	glVertex3f(3.5f, -2.5f, -5.0f);
-
-	glVertex3f(0.0f, 0.0f, 0.0f);
-	glVertex3f(-3.5f, 2.5f, -5.0f);
-
-	glVertex3f(0.0f, 0.0f, 0.0f);
-	glVertex3f(3.5f, 2.5f, -5.0f);
-
-	glVertex3f(-3.5f, -2.5f, -5.0f);
-	glVertex3f(3.5f, -2.5f, -5.0f);
-
-	glVertex3f(3.5f, -2.5f, -5.0f);
-	glVertex3f(3.5f, 2.5f, -5.0f);
-
-	glVertex3f(3.5f, 2.5f, -5.0f);
-	glVertex3f(-3.5f, 2.5f, -5.0f);
-
-	glVertex3f(-3.5f, 2.5f, -5.0f);
-	glVertex3f(-3.5f, -2.5f, -5.0f);
-
-	glEnd();
-}
-
 void CloudViewer::VisualizeCloud() {
 	if (!ptr_points_locked) {
 		ptr_points_locked = true;
@@ -328,22 +275,25 @@ void CloudViewer::VisualizeSobel() {
 		ptr_points_locked = true;
 		glPointSize(3);
 		glBegin(GL_POINTS);
-		float r, g;
+		float r, g, b;
 		for (int i = 0; i < heightMap->getNumPoints(); i++) {
 			if(heightMap->frequencies[i] == 0) {
-				r = .4;
-				g = .4;
+				r = .6;
+				g = .6;
+				b = .6;
 			} else if(heightMap->sobel[i]) {
-				r = 0;
+				r = .3;
 				g = .8;
+				b = .4;
 			} else {
 				r = .8;
-				g = 0;
+				g = .3;
+				b = .4;
 			}
 			POINT3D temp = heightMap->point(i);
 			// draw cells as short vertial lines (and don't draw points behind us)
 			if (temp.z > 0) {
-				glColor4f(r, g, .2, 1.0);
+				glColor4f(r, g, b, 1.0);
 				glVertex3f(temp.x, 0, -temp.z);
 			}
 		}
@@ -363,12 +313,19 @@ void CloudViewer::VisualizePlanner() {
 		float *edges = planner->getEdges();
 		glVertex3f(edges[0], 0, -edges[1]);
 		glVertex3f(edges[2], 0, -edges[3]);
+
+		glVertex3f(edges[2], 0, -edges[3]);
+		glVertex3f(edges[4], 0, -edges[5]);
+
 		glVertex3f(edges[4], 0, -edges[5]);
 		glVertex3f(edges[6], 0, -edges[7]);
 
+		glVertex3f(edges[6], 0, -edges[7]);
+		glVertex3f(edges[0], 0, -edges[1]);
+
 		// draw target as tiny cube
 		float *target = planner->getTarget();
-		float d = .05;
+		float d = .03;
 		glVertex3f(target[0]-d, -d, -target[1]-d);
 		glVertex3f(target[0]-d, -d, -target[1]+d);
 		glVertex3f(target[0]-d, -d, -target[1]+d);

@@ -45,7 +45,7 @@ int main() {
 	int height = camera->getImageSize().height;
 	PointCloud *cloud = new PointCloud(width, height);
 	HeightMap *heightMap = new HeightMap(80, 160);
-//	CloudViewer *viewer = new CloudViewer();
+	CloudViewer *viewer = new CloudViewer();
 	PathPlanner *planner = new PathPlanner(heightMap);
 	int key = ' ';
 	Mat depth, imLeft;
@@ -66,17 +66,17 @@ int main() {
 		planner->calcEdges();
 		steerToward(planner->getTarget());
 
-//		viewer->AddData(heightMap);
-//		viewer->AddPlanner(planner);
-//		viewer->AddData(cloud);
+		viewer->AddData(heightMap);
+		viewer->AddPlanner(planner);
+		viewer->AddData(cloud);
 
 		// Update the value of key so that we can quit when the user strikes 'q'
-//		key = viewer->getKey();
+		key = viewer->getKey();
 	}
 
 	printf("quitting\n");
 	delete camera;
 	delete cloud;
-//	delete viewer;
+	delete viewer;
 	return 0;
 }
