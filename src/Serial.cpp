@@ -4,6 +4,8 @@
 
 #include <unistd.h>
 
+#define STEERING_MULTIPLIER 0.65
+
 FILE* Serial::file;
 std::vector<double>* Serial::controlValsPtr;
 std::vector<double>* Serial::inverseRadiiPtr;
@@ -40,6 +42,7 @@ void Serial::open() {
 	inverseRadiiPtr->push_back(0.53359967963806);
 
 	// sleep in hopes that by the time we're done serial connection is good
+	printf("waiting... \n");
 	usleep(2000000);
 }
 
@@ -48,6 +51,7 @@ void Serial::close() {
 }
 
 void Serial::steer(float inverseRadius) {
+	inverseRadius *= STEERING_MULTIPLIER;
 	std::vector<double> controlVals = *controlValsPtr;
 	std::vector<double> inverseRadii = *inverseRadiiPtr;
 	// linear search the list of controlval-radius pairs for correct span
@@ -92,7 +96,6 @@ void Serial::kill() {
 
 void Serial::write(char controlByte) {
 	size_t result = fwrite(&controlByte, 1, 1, file);
-	printf("%x", controlByte);
 	if(result != 1) {
 		printf("failed to write a value to serial\n");
 	}

@@ -90,6 +90,38 @@ void HeightMap::calcSobel(float threshold) {
 			continue;
 		}
 
+		if(frequencies[i - width - 1] == 0) {
+			sobel[i] = true;
+			continue;
+		}
+		if(frequencies[i - width] == 0) {
+			sobel[i] = true;
+			continue;
+		}
+		if(frequencies[i - width + 1] == 0) {
+			sobel[i] = true;
+			continue;
+		}
+		if(frequencies[i - 1] == 0) {
+			sobel[i] = true;
+			continue;
+		}
+		if(frequencies[i + 1] == 0) {
+			sobel[i] = true;
+			continue;
+		}
+		if(frequencies[i + width - 1] == 0) {
+			sobel[i] = true;
+			continue;
+		}
+		if(frequencies[i + width] == 0) {
+			sobel[i] = true;
+			continue;
+		}
+		if(frequencies[i + width + 1] == 0) {
+			sobel[i] = true;
+			continue;
+		}
 		a = pc[i - width - 1].y;
 		b = pc[i - width].y;
 		c = pc[i - width + 1].y;

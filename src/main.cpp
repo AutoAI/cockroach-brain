@@ -17,14 +17,11 @@
 #include "PathPlanner.hpp"
 #include "Serial.hpp"
 
-// temp
-#include <unistd.h>
-// end temp
-
 using namespace sl::zed;
 using namespace std;
 
 float steerToward(float *target) {
+	printf("steer\n");
 	float x = target[0];
 	float y = target[1];
 
@@ -33,21 +30,7 @@ float steerToward(float *target) {
 }
 
 int main() {
-//	// temp
 	Serial::open();
-//	printf("hi\n");
-//	Serial::steer(-1);
-//	usleep(2000000);
-//	printf("hi\n");
-//	Serial::steer(1);
-//	usleep(2000000);
-//	printf("hi\n");
-//	Serial::steer(-1);
-//	usleep(20000000);
-//	printf("hi\n");
-//	Serial::close();
-//	return 0;
-	// end temp
 
 	Camera* camera = new Camera(HD720, 15.0);
 	ERRCODE code = camera->init(MODE::QUALITY, 0);
@@ -61,11 +44,14 @@ int main() {
 	int width = camera->getImageSize().width;
 	int height = camera->getImageSize().height;
 	PointCloud *cloud = new PointCloud(width, height);
-	HeightMap *heightMap = new HeightMap(240, 480);
-	CloudViewer *viewer = new CloudViewer();
+	HeightMap *heightMap = new HeightMap(80, 160);
+//	CloudViewer *viewer = new CloudViewer();
 	PathPlanner *planner = new PathPlanner(heightMap);
 	int key = ' ';
 	Mat depth, imLeft;
+
+	printf("LET'S GO!\n");
+	Serial::gas(0.25);
 
 	// application quits when user stikes 'q'
 	while (key != 'q') {
@@ -76,20 +62,21 @@ int main() {
 		cloud->fill(imLeft.data, (float*) depth.data, camera->getParameters());
 		cloud->fillHeightMap(heightMap);
 
-		heightMap->calcSobel(1.5);
+		heightMap->calcSobel(0.5);
 		planner->calcEdges();
 		steerToward(planner->getTarget());
 
-		viewer->AddData(heightMap);
-		viewer->AddPlanner(planner);
+//		viewer->AddData(heightMap);
+//		viewer->AddPlanner(planner);
+//		viewer->AddData(cloud);
 
 		// Update the value of key so that we can quit when the user strikes 'q'
-		key = viewer->getKey();
+//		key = viewer->getKey();
 	}
 
 	printf("quitting\n");
 	delete camera;
 	delete cloud;
-	delete viewer;
+//	delete viewer;
 	return 0;
 }
