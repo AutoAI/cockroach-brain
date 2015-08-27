@@ -143,12 +143,8 @@ CloudViewer::CloudViewer() {
 
     setupCallback();
 
-#if _WIN32
-    startMyThread();
-#else	/* _WIN32 */
     pthread_t glutThreadId;
     pthread_create(&glutThreadId, NULL, glutThreadFunc, 0);
-#endif	/* _WIN32 */
 }
 
 CloudViewer::~CloudViewer() {
@@ -179,31 +175,18 @@ void CloudViewer::reshapeCallback(int width, int height) {
     ptr->reshape(width, height);
 }
 
-#if _WIN32
-
-DWORD CloudViewer::ThreadStart(void) {
-    Init();
-    glutMainLoop();
-    return 0;
-}
-#else
-
 void* CloudViewer::glutThreadFunc(void* v) {
     ptr->Init();
     glutMainLoop();
     return v;
 }
 
-#endif	/*_WIN32*/
-
 void CloudViewer::Init() {
     char *argv[1];
     int argc = 1;
-#if _WIN32
-    argv[0] = _strdup("ZED View");
-#else
+
     argv[0] = strdup("ZED View");
-#endif
+
     glutInit(&argc, argv);
 
     glutInitWindowSize(1000, 1000);
@@ -268,30 +251,6 @@ void CloudViewer::DrawRepere(vect3 pos) {
 void CloudViewer::DrawTrapeze() {
     glBegin(GL_LINES);
     glColor3f(0.2f, 0.2f, 0.2f);
-
-/*    glVertex3f(0.0f, 0.0f, 0.0f);
-    glVertex3f(-35.0f, -25.0f, -50.0f);
-
-    glVertex3f(0.0f, 0.0f, 0.0f);
-    glVertex3f(35.0f, -25.0f, -50.0f);
-
-    glVertex3f(0.0f, 0.0f, 0.0f);
-    glVertex3f(-35.0f, 25.0f, -50.0f);
-
-    glVertex3f(0.0f, 0.0f, 0.0f);
-    glVertex3f(35.0f, 25.0f, -50.0f);
-
-    glVertex3f(-35.0f, -25.0f, -50.0f);
-    glVertex3f(35.0f, -25.0f, -50.0f);
-
-    glVertex3f(35.0f, -25.0f, -50.0f);
-    glVertex3f(35.0f, 25.0f, -50.0f);
-
-    glVertex3f(35.0f, 25.0f, -50.0f);
-    glVertex3f(-35.0f, 25.0f, -50.0f);
-
-    glVertex3f(-35.0f, 25.0f, -50.0f);
-    glVertex3f(-35.0f, -25.0f, -50.0f);*/
 
 	glVertex3f(0.0f, 0.0f, 0.0f);
 	glVertex3f(-3.5f, -2.5f, -5.0f);

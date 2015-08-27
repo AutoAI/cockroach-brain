@@ -11,9 +11,7 @@
 
 class TrackBallCamera {
 public:
-
-    TrackBallCamera() {
-    };
+    TrackBallCamera() {};
     TrackBallCamera(vect3 p, vect3 la);
     void applyTransformations();
     void show();
@@ -53,8 +51,8 @@ public:
     void UpDate();
     void StopDraw();
     unsigned char getKey();
-private:
 
+private:
     void Init();
 
     static void RedrawCallback();
@@ -98,23 +96,8 @@ private:
     unsigned char keyPressed;
     bool invertMotion;
 
-#ifdef _WIN32
-
-    static DWORD WINAPI StaticThreadStart(void* Param) {
-        CloudViewer* This = (CloudViewer*) Param;
-        return This->ThreadStart();
-    }
-
-    DWORD ThreadStart(void);
-
-    void startMyThread() {
-        DWORD ThreadID;
-        CreateThread(NULL, 0, StaticThreadStart, (void*) this, 0, &ThreadID);
-    }
-#else
     //!Thread unix
     static void* glutThreadFunc(void* v);
-#endif //_WIN32
 };
 
 
