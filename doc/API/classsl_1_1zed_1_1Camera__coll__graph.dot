@@ -1,0 +1,6 @@
+digraph "sl::zed::Camera"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{sl::zed::Camera\n||+ Camera()\l+ Camera()\l+ ~Camera()\l+ init()\l+ grab()\l+ reset()\l+ getView()\l+ getView_gpu()\l+ retrieveImage()\l+ retrieveMeasure()\land 21 more...\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+}

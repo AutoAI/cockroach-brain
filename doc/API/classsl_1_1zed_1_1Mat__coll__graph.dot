@@ -1,0 +1,6 @@
+digraph "sl::zed::Mat"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{sl::zed::Mat\n|+ width\l+ height\l+ step\l+ data\l+ channels\l+ data_type\l+ type\l|+ Mat()\l+ Mat()\l+ getValue()\l+ setUp()\l+ setUp()\l+ allocate_cpu()\l+ allocate_cpu()\l+ deallocate()\l+ getWidthByte()\l+ getDataSize()\l+ info()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+}

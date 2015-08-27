@@ -1,0 +1,8 @@
+digraph "sl::zed::StereoParameters"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{sl::zed::StereoParameters\n|+ baseline\l+ convergence\l|}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node2 -> Node1 [color="grey25",fontsize="10",style="solid",label=" +LeftCam\n+RightCam" ,arrowhead="odiamond",fontname="Helvetica"];
+  Node2 [label="{sl::zed::CamParameters\n|+ fx\l+ fy\l+ cx\l+ cy\l+ disto\l|+ SetUp()\l}",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structsl_1_1zed_1_1CamParameters.html",tooltip="Intrinsic parameters of one camera. "];
+}
