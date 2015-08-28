@@ -6,6 +6,22 @@
 
 #IncludeRegexTransform: 
 
+/usr/local/cuda/include/cuda.h
+stdlib.h
+-
+
+/usr/local/zed/include/zed/Camera.hpp
+zed/Mat.hpp
+/usr/local/zed/include/zed/zed/Mat.hpp
+zed/utils/GlobalDefine.hpp
+/usr/local/zed/include/zed/zed/utils/GlobalDefine.hpp
+cuda.h
+-
+
+/usr/local/zed/include/zed/Mat.hpp
+zed/utils/GlobalDefine.hpp
+/usr/local/zed/include/zed/zed/utils/GlobalDefine.hpp
+
 /usr/local/zed/include/zed/utils/GlobalDefine.hpp
 cstdio
 -
@@ -42,7 +58,21 @@ unistd.h
 limits
 -
 
-/usr/local/zed/sample/3D Visualization/src/CloudViewer.cpp
+/usr/local/zed/sample/3D Visualization/src/main.cpp
+stdio.h
+-
+string.h
+-
+chrono
+-
+zed/Mat.hpp
+-
+zed/Camera.hpp
+-
+zed/utils/GlobalDefine.hpp
+-
+PointCloud.hpp
+/usr/local/zed/sample/3D Visualization/src/PointCloud.hpp
 CloudViewer.hpp
 /usr/local/zed/sample/3D Visualization/src/CloudViewer.hpp
 

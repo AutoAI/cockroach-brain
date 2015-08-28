@@ -324,7 +324,7 @@ void CloudViewer::Redraw() {
     Visualize();
     // DrawRepere(camera.getLookAt());
     // DrawTrapeze();
-    zed3d->draw();
+    // zed3d->draw();
     glPopMatrix();
     glutSwapBuffers();
 }
