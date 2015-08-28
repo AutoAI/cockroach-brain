@@ -18,38 +18,28 @@
 //
 ///////////////////////////////////////////////////////////////////////////
 
-
-
-
-/**************************************************************************************************
- ** This sample demonstrates how to grab images and depth map with the camera SDK                    **
- ** and apply the result in a 3D view "point cloud style" with OpenGL /freeGLUT                   **
- ** Some of the functions of the camera SDK are linked with a key press event				         **
- ***************************************************************************************************/
-
-
 //standard Include
 #include <stdio.h>
 #include <string.h>
 #include <chrono>
 
 //camera Include
-#include <camera/Mat.hpp>
-#include <camera/Camera.hpp>
-#include <camera/utils/GlobalDefine.hpp>
+#include <zed/Mat.hpp>
+#include <zed/Camera.hpp>
+#include <zed/utils/GlobalDefine.hpp>
 
 //our point cloud generator and viewer.
 #include "PointCloud.hpp"
 #include "CloudViewer.hpp"
 
-using namespace sl::camera;
+using namespace sl::zed;
 using namespace std;
 
 //main Loop
 
 int main() {
 	
-    Camera* camera = new Camera(HD720,15.0);
+    Camera* camera = new Camera(VGA,15.0);
     ERRCODE err = camera->init(MODE::PERFORMANCE, 0);
 
     int width = camera->getImageSize().width;
