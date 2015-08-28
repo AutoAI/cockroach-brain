@@ -15,6 +15,7 @@ PointCloud::PointCloud(size_t width, size_t height) {
 }
 
 PointCloud::~PointCloud() {
+    
 }
 
 void PointCloud::fill(const unsigned char* image, const float* depth, const sl::zed::StereoParameters *param) {

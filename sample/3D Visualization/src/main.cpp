@@ -22,9 +22,9 @@
 
 
 /**************************************************************************************************
- ** This sample demonstrates how to grab images and depth map with the ZED SDK                    **
+ ** This sample demonstrates how to grab images and depth map with the camera SDK                    **
  ** and apply the result in a 3D view "point cloud style" with OpenGL /freeGLUT                   **
- ** Some of the functions of the ZED SDK are linked with a key press event				         **
+ ** Some of the functions of the camera SDK are linked with a key press event				         **
  ***************************************************************************************************/
 
 
@@ -33,146 +33,62 @@
 #include <string.h>
 #include <chrono>
 
-//ZED Include
-#include <zed/Mat.hpp>
-#include <zed/Camera.hpp>
-#include <zed/utils/GlobalDefine.hpp>
+//camera Include
+#include <camera/Mat.hpp>
+#include <camera/Camera.hpp>
+#include <camera/utils/GlobalDefine.hpp>
 
 //our point cloud generator and viewer.
 #include "PointCloud.hpp"
 #include "CloudViewer.hpp"
 
-using namespace sl::zed;
+using namespace sl::camera;
 using namespace std;
 
 //main Loop
 
-int main(int argc, char **argv) {
+int main() {
+	
+    Camera* camera = new Camera(HD720,15.0);
+    ERRCODE err = camera->init(MODE::PERFORMANCE, 0);
 
-	if (argc > 2){
-		std::cout << "Only the path of a SVO can be passed in arg" << std::endl;
-		return -1;
-	}
-	
-    Camera* zed ;
-	
-	if (argc == 1 ) // Use in Live Mode
-        zed = new Camera(HD720,15.0);
-	else			// Use in SVO playback mode
-		zed = new Camera(argv[1]);
-	
-	
-    ERRCODE err = zed->init(MODE::QUALITY, 0); //need quite a powerful graphic card in QUALITY
-
-    int width = zed->getImageSize().width;
-    int height = zed->getImageSize().height;
+    int width = camera->getImageSize().width;
+    int height = camera->getImageSize().height;
 
     // ERRCODE display
     cout << errcode2str(err) << endl;
 
     // Quit if an error occurred
     if (err != SUCCESS) {
-        delete zed;
+        delete camera;
         return 1;
     }
 
-    SENSING_MODE dm_type = RAW;
-    bool short_range=false;		 //20 meters
-    int short_range_dist = 3500; //mm
-
     int key = ' ';
-    int ViewID = 0;
-    int reliabilityIdx = 96;
 
     Mat depth, imLeft;
 
     PointCloud *cloud = new PointCloud(width, height);
     CloudViewer *viewer = new CloudViewer();
 
-    while ((key != 'q')) {
+    // application quits when user stikes 'q'
+    while (key != 'q') {
         // DisparityMap filtering
-        //zed->setDispReliability(reliabilityIdx); !! this function name has been changed in Release 0.8 --see change log
-		zed->setConfidenceThreshold(reliabilityIdx);
+		camera->setConfidenceThreshold(96); // parameter is reliability index ~[1,100] with 100 as no filtering
 
         // Get frames and launch the computation
-        bool res = zed->grab(dm_type);
+        bool res = camera->grab(SENSING_MODE::RAW);
 
-        depth = zed->retrieveMeasure(MEASURE::DEPTH);
-        imLeft = zed->retrieveImage(SIDE::LEFT);
-        cloud->fill(imLeft.data, (float*) depth.data, zed->getParameters());
+        depth = camera->retrieveMeasure(MEASURE::DEPTH);
+        imLeft = camera->retrieveImage(SIDE::LEFT);
+        cloud->fill(imLeft.data, (float*) depth.data, camera->getParameters());
         viewer->AddData(cloud);
 
+        // Update the value of key so that we can quit when the user strikes 'q'
         key = viewer->getKey();
-        switch (key) {
-
-            case 'b': // decrease the value of the reliability 
-                reliabilityIdx -= 1;
-                break;
-
-            case 'n': // increase the value of the reliability
-                reliabilityIdx += 1;
-                break;
-
-            case 'r': // switch to RAW sensing mode
-                dm_type = RAW;
-                break;
-
-            case 'f': // switch to FULL sensing mode
-                dm_type = FULL;
-                break;
-
-            case 's': // save the current point cloud in a PCD file
-                cloud->WritePCDFile("PointCloud");
-                break;
-
-            case 'c' : // clamp/unclamp to short nmode (4m /20m)
-                {
-
-                    short_range=!short_range;
-                    if (short_range)
-                    {
-                     //  std::cout<<" Clamp Value : "<<short_range_dist<<std::endl;
-                      zed->setDepthClampValue(short_range_dist);
-                    }
-                    else
-                    {
-                      //  std::cout<<"ZED Clamp Value : "<<20000<<std::endl;
-                       zed->setDepthClampValue(20000);
-                    }
-
-
-                }
-                break;
-
-            case '+':
-                {
-                    if (short_range)
-                    {
-                        short_range_dist+=100;
-                        if (short_range_dist>20000) short_range_dist=20000;
-
-                        //std::cout<<"ZED Clamp Value : "<<short_range_dist<<std::endl;
-                        zed->setDepthClampValue(short_range_dist);
-                    }
-                }
-                break;
-
-            case '-':
-            {
-                if (short_range)
-                {
-                    short_range_dist-=100;
-                    if (short_range_dist<1000) short_range_dist=1000;
-
-                   // std::cout<<"ZED Clamp Value : "<<short_range_dist<<std::endl;
-                    zed->setDepthClampValue(short_range_dist);
-                }
-            }
-            break;
-        }
     }
 
-    delete zed;
+    delete camera;
     delete cloud;
     delete viewer;
     return 0;
