@@ -9,25 +9,13 @@ endif(COMMAND cmake_policy)
 
 SET(EXECUTABLE_OUTPUT_PATH ".")
 SET(LINUX_ONLY_LIBRARIES "")
-IF(WIN32) # Windows
-SET(ZED_INCLUDE_DIRS $ENV{ZED_INCLUDE_DIRS})
-	if (CMAKE_CL_64) # 64 bits
-		SET(ZED_LIBRARIES $ENV{ZED_LIBRARIES_64})
-	else(CMAKE_CL_64) # 32 bits
-		SET(ZED_LIBRARIES $ENV{ZED_LIBRARIES_32})
-		SET(GLUT_LIBRARY_DIRS $ENV{GLUT_LIBRARY_DIRS})
-		SET(GLUT_LIBRARY $ENV{GLUT_LIBRARY})
-	endif(CMAKE_CL_64)
-SET(ZED_LIBRARY_DIR $ENV{ZED_LIBRARY_DIR})
-SET(GLUT_INCLUDE_DIRS $ENV{GLUT_INCLUDE_DIRS})
-ELSE() # Linux
+
 SET(ZED_DIR "/usr/local/zed/")
 find_package(ZED 1.0 REQUIRED)
 find_package(GLUT)
 SET(LINUX_ONLY_LIBRARIES pthread npps nppi)
-ENDIF(WIN32)
 
-# Mandatory
+# Mandatory packages
 find_package(CUDA 6.5 EXACT REQUIRED)
 find_package(OpenGL)
 
@@ -59,3 +47,4 @@ TARGET_LINK_LIBRARIES(${execName}
                     )
 
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O3" ) # Release Perf mode
+SET(CUDA_NVCC_FLAGS ${CUDA_NVCC_FLAGS};-gencode arch=compute_20,code=sm_20)
