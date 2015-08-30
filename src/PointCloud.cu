@@ -1,3 +1,5 @@
+// PointCloud.cu
+
 #include "PointCloud.hpp"
 
 #ifdef __unix
@@ -18,29 +20,23 @@ PointCloud::~PointCloud() {
 	
 }
 
-void PointCloud::fill(const unsigned char* image, const float* depth, const sl::zed::StereoParameters *param) {
-	float depth_;
-	float cx = param->LeftCam.cx;
-	float cy = param->LeftCam.cy;
-	float fx = param->LeftCam.fx;
-	float fy = param->LeftCam.fy;
+void PointCloud::fill(const unsigned char* image, const float* depth_map, const sl::zed::StereoParameters *param) {
+	parallelFill<<< 1, Width * Height >>>(image, depth_map, param);
+}
 
-	int index = 0;
-	for (int j = 0; j < Height; j++) {
-		for (int i = 0; i < Width; i++) {
-			pc[index].setColor(&image[j * (Width * 4) + i * 4]);
+__global__ void PointCloud::parallelFill(const unsigned char* image, const float* depth_map, const sl::zed::StereoParameters *param) {
+	int t = threadIdx.x;
+	int j = t / Width;
+	int i = t % Width;
 
-			depth_ = depth[j * Width + i];
-			if (depth_ > 0)
-				depth_ /= 1000.f; // Convert in meters;
+	pc[t].setColor(&image[j * (Width * 4) + i * 4]);
 
-			pc[index].z = depth_;
-			pc[index].x = ((i - cx) * depth_) / fx;
-			pc[index].y = ((j - cy) * depth_) / fy;
-			
-			index++;
-		}
-	}
+	depth = depth_map[t];
+	depth /= 1000.f; // Convert to meters;
+
+	pc[t].z = depth;
+	pc[t].x = ((i - param->LeftCam.cx) * depth) / param->LeftCam.fx;
+	pc[t].y = ((j - param->LeftCam.cy) * depth) / param->LeftCam.fy;
 }
 
 POINT3D PointCloud::Point(size_t i, size_t j) {
@@ -86,5 +82,4 @@ void PointCloud::WritePCDFile(std::string path, bool verbose) {
 	if (verbose) printf("Done\n");
 
 	fclose(fich);
-
 }

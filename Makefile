@@ -26,17 +26,17 @@ $(BIN_DIR)/$(PROJECT_NAME): $(OBJECTS)
 	@echo "Linking..."
 	@$(CC) $(BUILD_DIR)/*.o -o $(BIN_DIR)/$(PROJECT_NAME) $(LFLAGS)
 
-main.o: main.cu PointCloud.hpp CloudViewer.hpp
+main.o: main.cpp PointCloud.hpp CloudViewer.hpp
 	@echo "Compiling main..."
-	@$(NVCC) $(NVCCFLAGS) $(SRC_DIR)/main.cu -o $(BUILD_DIR)/main.o
+	@$(CC) $(CCFLAGS) $(SRC_DIR)/main.cu -o $(BUILD_DIR)/main.o
 
 CloudViewer.o: CloudViewer.cpp CloudViewer.hpp PointCloud.hpp utils.hpp
 	@echo "Compiling CloudViewer..."
 	@$(CC) $(CCFLAGS) $(SRC_DIR)/CloudViewer.cpp -o $(BUILD_DIR)/CloudViewer.o
 
-PointCloud.o: PointCloud.cpp PointCloud.hpp utils.hpp
+PointCloud.o: PointCloud.cu PointCloud.hpp utils.hpp
 	@echo "Compiling PointCloud..."
-	@$(CC) $(CCFLAGS) $(SRC_DIR)/PointCloud.cpp -o $(BUILD_DIR)/PointCloud.o
+	@$(NVCC) $(NVCCFLAGS) $(SRC_DIR)/PointCloud.cpp -o $(BUILD_DIR)/PointCloud.o
 
 clean:
 	@rm $(BUILD_DIR)/*.o

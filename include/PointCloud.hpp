@@ -1,4 +1,5 @@
 // PointCloud.hpp
+
 #ifndef __SLPOINTCLOUD_H__
 #define __SLPOINTCLOUD_H__
 
@@ -44,6 +45,8 @@ public:
 
 private:
 	std::vector<POINT3D> pc;
+
+	void parallelFill(const unsigned char* image, const float* depth, const sl::zed::StereoParameters *param);
 
 	int Width;
 	int Height;
