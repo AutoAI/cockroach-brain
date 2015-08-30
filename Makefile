@@ -24,7 +24,7 @@ vpath %.o $(BUILD_DIR)
 
 $(BIN_DIR)/$(PROJECT_NAME): $(OBJECTS)
 	@echo "Linking..."
-	@$(CC) *.o -o $(BIN_DIR)/$(PROJECT_NAME) $(LFLAGS)
+	@$(CC) $(SRC_DIR)/*.o -o $(BIN_DIR)/$(PROJECT_NAME) $(LFLAGS)
 
 main.o: main.cu
 	@echo "Compiling main..."
