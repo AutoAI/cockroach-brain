@@ -11,7 +11,7 @@ INCLUDE_DIR = include
 
 GCCFLAGS = -c -std=c++11 -I$(CUDAPATH)/include -I$(INCLUDE_DIR)
 NVCCFLAGS = -c -std=c++11 -I$(CUDAPATH)/include -I$(INCLUDE_DIR)
-LFLAGS = -L$(CUDAPATH)/lib -lcuda -lcudart -lm
+LFLAGS = -L$(CUDAPATH)/lib -lcuda -lcudart -lm -lGL -lGLU -lglut
 
 all: build clean
 
