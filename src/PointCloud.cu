@@ -51,8 +51,12 @@ POINT3D PointCloud::Point(size_t i, size_t j) {
 	return pc[i + Width * j];
 }
 
+POINT3D PointCloud::Point(size_t i) {
+	return pc[i];
+}
+
 size_t PointCloud::GetNbPoints() {
-	return pc.size();
+	return Width * Height;
 }
 
 size_t PointCloud::GetWidth() {

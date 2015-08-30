@@ -16,26 +16,11 @@ public:
 	void fill(const unsigned char* image, const float* depth, const sl::zed::StereoParameters *param);
 
 	POINT3D Point(size_t i, size_t j);
+	POINT3D Point(size_t i);
 
 	size_t GetNbPoints();
 	size_t GetWidth();
 	size_t GetHeight();
-
-	iterator begin() {
-		return pc.begin();
-	}
-
-	iterator end() {
-		return pc.end();
-	}
-
-	const_iterator cbegin() {
-		return pc.cbegin();
-	}
-
-	const_iterator cend() {
-		return pc.cend();
-	}
 
 private:
 	POINT3D* pc;

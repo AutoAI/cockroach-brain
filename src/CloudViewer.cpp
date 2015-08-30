@@ -284,10 +284,10 @@ void CloudViewer::Visualize() {
 	if (data_point && !ptr_points_locked) {
 		ptr_points_locked = true;
 		glBegin(GL_POINTS);
-		for (auto it = cloud->cbegin(); it != cloud->cend(); ++it) {
-			if (it->z > 0) {
-				glColor4f(it->r, it->g, it->b, 0.75);
-				glVertex3f(it->x, -it->y, -it->z);
+		for (int i = 0; i < cloud.getNbPoints(); i++) {
+			if (cloud.Point(i).z > 0) {
+				glColor4f(cloud.Point(i).r, cloud.Point(i).g, cloud.Point(i).b, 0.75);
+				glVertex3f(cloud.Point(i).x, -cloud.Point(i).y, -cloud.Point(i).z);
 			}
 		}
 		glEnd();
