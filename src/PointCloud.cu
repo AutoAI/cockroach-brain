@@ -25,7 +25,9 @@ __global__ void parallelFill(const unsigned char* image, const float* depth_map,
 	int j = t / *Width;
 	int i = t % *Width;
 
-	dev_pc[t].setColor(&image[j * (*Width * 4) + i * 4]);
+	dev_pc[t].r = image[j * (*Width * 4) + i * 4];
+	dev_pc[t].g = image[j * (*Width * 4) + i * 4 + 1];
+	dev_pc[t].b = image[j * (*Width * 4) + i * 4 + 2];
 
 	float depth = depth_map[t];
 	depth /= 1000.f; // Convert to meters;
