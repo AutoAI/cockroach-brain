@@ -36,7 +36,7 @@ CloudViewer.o: CloudViewer.cpp CloudViewer.hpp PointCloud.hpp utils.hpp
 
 PointCloud.o: PointCloud.cu PointCloud.hpp utils.hpp
 	@echo "Compiling PointCloud..."
-	@$(NVCC) $(NVCCFLAGS) $(SRC_DIR)/PointCloud.cpp -o $(BUILD_DIR)/PointCloud.o
+	@$(NVCC) $(NVCCFLAGS) $(SRC_DIR)/PointCloud.cu -o $(BUILD_DIR)/PointCloud.o
 
 clean:
 	@rm $(BUILD_DIR)/*.o
