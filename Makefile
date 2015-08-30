@@ -3,7 +3,7 @@ PROJECT_NAME = auto-baja
 NVCC = nvcc
 CC = g++
 
-CUDAPATH = /usr/loca/cuda-6.5/
+CUDAPATH = /usr/local/cuda-6.5/
 
 BUILD_DIR = build
 SRC_DIR = src
