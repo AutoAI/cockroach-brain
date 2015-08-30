@@ -1,1 +1,0 @@
- -rdynamic -lnpps -lnppi -lSM -lICE -lX11 -lXext -lXmu -lXi
