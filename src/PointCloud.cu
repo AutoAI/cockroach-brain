@@ -20,7 +20,7 @@ PointCloud::~PointCloud() {
 	
 }
 
-__global__ void parallelFill(const unsigned char* image, const float* depth_map, const int* Width, const void** dev_pc, const float* cx, const float* cy, const float* fx, const float* fy) {
+__global__ void parallelFill(const unsigned char* image, const float* depth_map, const int* Width, const POINT3D* dev_pc, const float* cx, const float* cy, const float* fx, const float* fy) {
 	int t = threadIdx.x;
 	int j = t / *Width;
 	int i = t % *Width;
@@ -46,7 +46,7 @@ void PointCloud::fill(const unsigned char* image, const float* depth_map, const 
 	// copy device pc to host
 	cudaMemcpy(dev_pc, pc, Width * Height * sizeof(POINT3D), cudaMemcpyDeviceToHost);
 	// free allocated device memory
-	
+
 }
 
 POINT3D PointCloud::Point(size_t i, size_t j) {
