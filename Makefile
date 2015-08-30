@@ -18,16 +18,16 @@ LFLAGS = -lGL -lGLU -lglut -L$(CUDAPATH)/lib -lcuda -lcudart -lm -pthread -L$(ZE
 OBJECTS = main.o CloudViewer.o PointCloud.o
 
 $(PROJECT_NAME): $(OBJECTS)
-	$(CC) *.o -o $(BUILD_DIR)/$(PROJECT_NAME) $(LFLAGS)
+	$(CC) $(BUILD_DIR)/*.o -o $(BUILD_DIR)/$(PROJECT_NAME) $(LFLAGS)
 
 main.o:
 	$(NVCC) $(NVCCFLAGS) $(SRC_DIR)/main.cu -o $(BUILD_DIR)/main.o
 
 CloudViewer.o:
-	$(CC) $(CCFLAGS) $(SRC_DIR)/CloudViewer.cpp -o CloudViewer.o
+	$(CC) $(CCFLAGS) $(SRC_DIR)/CloudViewer.cpp -o $(BUILD_DIR)/CloudViewer.o
 
 PointCloud.o:
-	$(CC) $(CCFLAGS) $(SRC_DIR)/PointCloud.cpp -o PointCloud.o
+	$(CC) $(CCFLAGS) $(SRC_DIR)/PointCloud.cpp -o $(BUILD_DIR)/PointCloud.o
 
 clean:
 	rm $(BUILD_DIR)/*.o
