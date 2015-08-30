@@ -25,10 +25,10 @@ src_dir:
 	mkdir -p $(SRC_DIR)
 
 gpu:
-	$(NVCC) $(NVCCFLAGS) *.cu
+	$(NVCC) $(NVCCFLAGS) $(SRC_DIR)/*.cu
 
 cpu:
-	$(CC) $(GCCFLAGS) *.cpp
+	$(CC) $(GCCFLAGS) $(SRC_DIR)/*.cpp
 
 clean:
 	rm *.o
