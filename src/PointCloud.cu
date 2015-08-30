@@ -49,6 +49,8 @@ void PointCloud::fill(const unsigned char* image, const float* depth_map, const 
 	cudaMemcpy(dev_pc, pc, Width * Height * sizeof(POINT3D), cudaMemcpyDeviceToHost);
 	// free allocated device memory
 	cudaFree((void*)dev_pc);
+
+	std::cout << "fill" << std::endl;
 }
 
 POINT3D PointCloud::Point(size_t i, size_t j) {
