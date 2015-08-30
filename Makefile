@@ -4,6 +4,7 @@ NVCC = nvcc
 CC = g++
 
 CUDAPATH = /usr/local/cuda-6.5
+ZEDPATH = /usr/local/zed
 
 BUILD_DIR = build
 SRC_DIR = src
@@ -11,7 +12,7 @@ INCLUDE_DIR = include
 
 GCCFLAGS = -c -std=c++11 -I$(CUDAPATH)/include -I$(INCLUDE_DIR)
 NVCCFLAGS = -c -std=c++11 -I$(CUDAPATH)/include -I$(INCLUDE_DIR)
-LFLAGS = -lGL -lGLU -lglut -L$(CUDAPATH)/lib -lcuda -lcudart -lm -pthread
+LFLAGS = -lGL -lGLU -lglut -L$(CUDAPATH)/lib -lcuda -lcudart -lm -pthread -L$(ZEDPATH)/lib -lsl_zed -lsl_depthcore -lsl_calibration -lcudpp -lcudpp_hash
 
 all: build clean
 
