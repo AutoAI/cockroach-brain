@@ -6,33 +6,31 @@ CC = g++
 CUDAPATH = /usr/local/cuda-6.5
 ZEDPATH = /usr/local/zed
 
+BIN_DIR = bin
 BUILD_DIR = build
 SRC_DIR = src
 INCLUDE_DIR = include
 
-GCCFLAGS = -c -std=c++11 -I$(CUDAPATH)/include -I$(INCLUDE_DIR)
+CCFLAGS = -c -std=c++11 -I$(CUDAPATH)/include -I$(INCLUDE_DIR)
 NVCCFLAGS = -c -std=c++11 -I$(CUDAPATH)/include -I$(INCLUDE_DIR)
 LFLAGS = -lGL -lGLU -lglut -L$(CUDAPATH)/lib -lcuda -lcudart -lm -pthread -L$(ZEDPATH)/lib -lsl_zed -lsl_depthcore -lsl_calibration -lcudpp -lcudpp_hash -rdynamic -lnppc -lnpps -lnppi -lSM -lICE -lX11 -lXext -lXmu -lXi
 
-all: build clean
+OBJECTS = main.o CloudViewer.o PointCloud.o
 
-build: build_dir src_dir gpu cpu
+$(PROJECT_NAME): $(OBJECTS)
 	$(CC) *.o -o $(BUILD_DIR)/$(PROJECT_NAME) $(LFLAGS)
 
-build_dir:
-	mkdir -p $(BUILD_DIR)
+main.o:
+	$(NVCC) $(NVCCFLAGS) $(SRC_DIR)/main.cu -o $(BUILD_DIR)/main.o
 
-src_dir:
-	mkdir -p $(SRC_DIR)
+CloudViewer.o:
+	$(CC) $(CCFLAGS) $(SRC_DIR)/CloudViewer.cpp -o CloudViewer.o
 
-gpu:
-	$(NVCC) $(NVCCFLAGS) $(SRC_DIR)/*.cu
-
-cpu:
-	$(CC) $(GCCFLAGS) $(SRC_DIR)/*.cpp
+PointCloud.o:
+	$(CC) $(CCFLAGS) $(SRC_DIR)/PointCloud.cpp -o PointCloud.o
 
 clean:
-	rm *.o
+	rm $(BUILD_DIR)/*.o
 
 run:
-	./$(BUILD_DIR)/$(PROJECT_NAME)
+	./$(BIN_DIR)/$(PROJECT_NAME)
