@@ -38,21 +38,17 @@ __global__ void parallelFill(const unsigned char* image, const float* depth_map,
 }
 
 void PointCloud::fill(const unsigned char* image, const float* depth_map, const sl::zed::StereoParameters *param) {
-	for(int i = 0; i < Width * Height; i++) {
-		pc[i].r = 1;
-	}
-
 	// allocate memory for a device copy of pc
 	POINT3D* dev_pc;
-	cudaMalloc((void**)&dev_pc, Width * Height * sizeof(POINT3D));
+	cudaMalloc(&dev_pc, Width * Height * sizeof(POINT3D));
 	// copy host pc to device
 	cudaMemcpy(dev_pc, pc, Width * Height * sizeof(POINT3D), cudaMemcpyHostToDevice);
 	// fill
 	parallelFill<<< 1, Width * Height >>>(image, depth_map, &Width, dev_pc, &(param->LeftCam.cx), &(param->LeftCam.cy), &(param->LeftCam.fx), &(param->LeftCam.fy));
 	// copy device pc to host
-	cudaMemcpy(dev_pc, pc, Width * Height * sizeof(POINT3D), cudaMemcpyDeviceToHost);
+	cudaMemcpy(pc, dev_pc, Width * Height * sizeof(POINT3D), cudaMemcpyDeviceToHost);
 	// free allocated device memory
-	cudaFree((void*)dev_pc);
+	cudaFree(dev_pc);
 
 	for(int i = 0; i < Width * Height; i++) {
 		std::cout << pc[i].r << '\t' << pc[i].g << '\t' << pc[i].b << '\t' << pc[i].x << '\t' << pc[i].y << '\t' << pc[i].z << '\t' << std::endl;
