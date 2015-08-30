@@ -46,7 +46,7 @@ public:
 private:
 	std::vector<POINT3D> pc;
 
-	__device__ void parallelFill(const unsigned char* image, const float* depth, const sl::zed::StereoParameters *param);
+	void parallelFill(const unsigned char* image, const float* depth, const sl::zed::StereoParameters *param);
 
 	int Width;
 	int Height;

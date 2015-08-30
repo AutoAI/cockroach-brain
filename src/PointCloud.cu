@@ -21,10 +21,10 @@ PointCloud::~PointCloud() {
 }
 
 void PointCloud::fill(const unsigned char* image, const float* depth_map, const sl::zed::StereoParameters *param) {
-	parallelFill<<< 1, Width * Height >>>(image, depth_map, param);
+	parallelFill<<< 1, Width * Height >>>(image, depth_map, param->LeftCam.cx, param->LeftCam.cy, param->LeftCam.fx, param->LeftCam.fy);
 }
 
-__global__ void PointCloud::parallelFill(const unsigned char* image, const float* depth_map, const sl::zed::StereoParameters *param) {
+__global__ void PointCloud::parallelFill(const unsigned char* image, const float* depth_map, const float* cx, const float* cy, const float* fx, const float* fy) {
 	int t = threadIdx.x;
 	int j = t / Width;
 	int i = t % Width;
@@ -35,8 +35,8 @@ __global__ void PointCloud::parallelFill(const unsigned char* image, const float
 	depth /= 1000.f; // Convert to meters;
 
 	pc[t].z = depth;
-	pc[t].x = ((i - param->LeftCam.cx) * depth) / param->LeftCam.fx;
-	pc[t].y = ((j - param->LeftCam.cy) * depth) / param->LeftCam.fy;
+	pc[t].x = ((i - cx) * depth) / fx;
+	pc[t].y = ((j - cy) * depth) / fy;
 }
 
 POINT3D PointCloud::Point(size_t i, size_t j) {
