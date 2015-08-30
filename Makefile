@@ -20,13 +20,13 @@ OBJECTS = main.o CloudViewer.o PointCloud.o
 $(PROJECT_NAME): $(OBJECTS)
 	$(CC) $(BUILD_DIR)/*.o -o $(BUILD_DIR)/$(PROJECT_NAME) $(LFLAGS)
 
-main.o:
+$(BUILD_DIR)/main.o:
 	$(NVCC) $(NVCCFLAGS) $(SRC_DIR)/main.cu -o $(BUILD_DIR)/main.o
 
-CloudViewer.o:
+$(BUILD_DIR)/CloudViewer.o:
 	$(CC) $(CCFLAGS) $(SRC_DIR)/CloudViewer.cpp -o $(BUILD_DIR)/CloudViewer.o
 
-PointCloud.o:
+$(BUILD_DIR)/PointCloud.o:
 	$(CC) $(CCFLAGS) $(SRC_DIR)/PointCloud.cpp -o $(BUILD_DIR)/PointCloud.o
 
 clean:
