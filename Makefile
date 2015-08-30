@@ -19,22 +19,22 @@ OBJECTS = main.o CloudViewer.o PointCloud.o
 
 vpath %.cpp $(SRC_DIR)
 vpath %.cu $(SRC_DIR)
-vpath %.h $(INCLUDE_DIR)
+vpath %.hpp $(INCLUDE_DIR)
 vpath %.o $(BUILD_DIR)
 
 $(BIN_DIR)/$(PROJECT_NAME): $(OBJECTS)
 	@echo "Linking..."
 	@$(CC) $(BUILD_DIR)/*.o -o $(BIN_DIR)/$(PROJECT_NAME) $(LFLAGS)
 
-main.o: main.cu
+main.o: main.cu PointCloud.hpp CloudViewer.hpp
 	@echo "Compiling main..."
 	@$(NVCC) $(NVCCFLAGS) $(SRC_DIR)/main.cu -o $(BUILD_DIR)/main.o
 
-CloudViewer.o: CloudViewer.cpp
+CloudViewer.o: CloudViewer.cpp CloudViewer.hpp PointCloud.hpp utils.hpp
 	@echo "Compiling CloudViewer..."
 	@$(CC) $(CCFLAGS) $(SRC_DIR)/CloudViewer.cpp -o $(BUILD_DIR)/CloudViewer.o
 
-PointCloud.o: PointCloud.cpp
+PointCloud.o: PointCloud.cpp PointCloud.hpp utils.hpp
 	@echo "Compiling PointCloud..."
 	@$(CC) $(CCFLAGS) $(SRC_DIR)/PointCloud.cpp -o $(BUILD_DIR)/PointCloud.o
 
