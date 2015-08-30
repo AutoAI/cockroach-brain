@@ -11,12 +11,12 @@ INCLUDE_DIR = include
 
 GCCFLAGS = -c -std=c++11 -I$(CUDAPATH)/include -I$(INCLUDE_DIR)
 NVCCFLAGS = -c -std=c++11 -I$(CUDAPATH)/include -I$(INCLUDE_DIR)
-LFLAGS = -lGL -lGLU -lglut -L$(CUDAPATH)/lib -lcuda -lcudart -lm --no-as-needed
+LFLAGS = -lGL -lGLU -lglut -L$(CUDAPATH)/lib -lcuda -lcudart -lm
 
 all: build clean
 
 build: build_dir src_dir gpu cpu
-	$(CC) $(LFLAGS) -o $(BUILD_DIR)/$(PROJECT_NAME) *.o
+	$(CC) *.o -o $(BUILD_DIR)/$(PROJECT_NAME) $(LFLAGS)
 
 build_dir:
 	mkdir -p $(BUILD_DIR)
