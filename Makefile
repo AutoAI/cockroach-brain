@@ -9,7 +9,7 @@ BUILD_DIR = build
 SRC_DIR = src
 INCLUDE_DIR = include
 
-GCCFLAGS = -c -m32 -std=c++11 -I$(CUDAPATH)/include -I$(INCLUDE_DIR)
+GCCFLAGS = -c -std=c++11 -I$(CUDAPATH)/include -I$(INCLUDE_DIR)
 NVCCFLAGS = -c -std=c++11 -I$(CUDAPATH)/include -I$(INCLUDE_DIR)
 LFLAGS = -m32 -L$(CUDAPATH)/lib -lcuda -lcudart -lm
 
