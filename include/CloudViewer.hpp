@@ -4,7 +4,6 @@
 #define __CLOUD_VIEWER_INCLUDE__
 
 #include "PointCloud.hpp"
-#include "Zed3D.hpp"
 #include "utils.hpp"
 #include <math.h>
 #include "GL/glut.h"    /* OpenGL Utility Toolkit header */
@@ -65,8 +64,6 @@ private:
 
     PointCloud *cloud;
     bool ptr_points_locked;
-
-    Zed3D *zed3d;
 
     void Redraw();
     void mouse(int button, int state, int x, int y);

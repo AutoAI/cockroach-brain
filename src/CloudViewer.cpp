@@ -131,7 +131,6 @@ void TrackBallCamera::setAngleX() {
 }
 
 CloudViewer::CloudViewer() {
-    zed3d = new Zed3D(0.0f, 0.0f, 0.0f);
     camera = TrackBallCamera(vect3(0.0f, .1f, .5f), vect3(0.0f, 0.0f, 0.0f));
     point_size = 2;
     data_point = false;
@@ -148,7 +147,7 @@ CloudViewer::CloudViewer() {
 }
 
 CloudViewer::~CloudViewer() {
-    delete zed3d;
+
 }
 
 void CloudViewer::setupCallback() {
@@ -324,7 +323,6 @@ void CloudViewer::Redraw() {
     Visualize();
     // DrawRepere(camera.getLookAt());
     // DrawTrapeze();
-    // zed3d->draw();
     glPopMatrix();
     glutSwapBuffers();
 }
