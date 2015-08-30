@@ -50,10 +50,8 @@ void PointCloud::fill(const unsigned char* image, const float* depth_map, const 
 	// free allocated device memory
 	cudaFree((void*)dev_pc);
 
-	for(int j = 0; j < Height; j++) {
-		for(int i = 0; i < Height; i++) {
-			std::cout << pc[i + Width * j]->r << '\t' << pc[i + Width * j]->g << '\t' << pc[i + Width * j]->b << '\t' << pc[i + Width * j]->x << '\t' << pc[i + Width * j]->y << '\t' << pc[i + Width * j]->z << '\t' << std::endl;
-		}
+	for(int i = 0; i < Width * Height; i++) {
+		std::cout << pc[i].r << '\t' << pc[i].g << '\t' << pc[i].b << '\t' << pc[i].x << '\t' << pc[i].y << '\t' << pc[i].z << '\t' << std::endl;
 	}
 }
 
