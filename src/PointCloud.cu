@@ -31,7 +31,7 @@ __global__ void PointCloud::parallelFill(const unsigned char* image, const float
 
 	pc[t].setColor(&image[j * (Width * 4) + i * 4]);
 
-	depth = depth_map[t];
+	float depth = depth_map[t];
 	depth /= 1000.f; // Convert to meters;
 
 	pc[t].z = depth;
