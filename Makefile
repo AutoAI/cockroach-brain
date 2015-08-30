@@ -28,7 +28,7 @@ $(BIN_DIR)/$(PROJECT_NAME): $(OBJECTS)
 
 main.o: main.cpp PointCloud.hpp CloudViewer.hpp
 	@echo "Compiling main..."
-	$(NVCC) $(NVCCFLAGS) $(SRC_DIR)/main.cpp -o $(BUILD_DIR)/main.o
+	@$(NVCC) $(NVCCFLAGS) $(SRC_DIR)/main.cpp -o $(BUILD_DIR)/main.o
 
 CloudViewer.o: CloudViewer.cpp CloudViewer.hpp PointCloud.hpp utils.hpp
 	@echo "Compiling CloudViewer..."
