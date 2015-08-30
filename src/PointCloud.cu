@@ -52,7 +52,7 @@ void PointCloud::fill(const unsigned char* image, const float* depth_map, const 
 
 	for(int j = 0; j < Height; j++) {
 		for(int i = 0; i < Height; i++) {
-			std::cout << pc->r << '\t' << pc->g << '\t' << pc->b << '\t' << pc->x << '\t' << pc->y << '\t' << pc->z << '\t' << std::endl;
+			std::cout << pc[i + Width * j]->r << '\t' << pc[i + Width * j]->g << '\t' << pc[i + Width * j]->b << '\t' << pc[i + Width * j]->x << '\t' << pc[i + Width * j]->y << '\t' << pc[i + Width * j]->z << '\t' << std::endl;
 		}
 	}
 }
