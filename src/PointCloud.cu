@@ -21,7 +21,7 @@ PointCloud::~PointCloud() {
 }
 
 void PointCloud::fill(const unsigned char* image, const float* depth_map, const sl::zed::StereoParameters *param) {
-	parallelFill<<< 1, Width * Height >>>(image, depth_map, param->LeftCam.cx, param->LeftCam.cy, param->LeftCam.fx, param->LeftCam.fy);
+	parallelFill<<< 1, Width * Height >>>(image, depth_map, &(param->LeftCam.cx), &(param->LeftCam.cy), &(param->LeftCam.fx), &(param->LeftCam.fy));
 }
 
 __global__ void PointCloud::parallelFill(const unsigned char* image, const float* depth_map, const float* cx, const float* cy, const float* fx, const float* fy) {
