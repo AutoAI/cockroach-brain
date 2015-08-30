@@ -15,7 +15,7 @@ CCFLAGS = -c -std=c++11 -I$(CUDAPATH)/include -I$(INCLUDE_DIR)
 NVCCFLAGS = -c -std=c++11 -I$(CUDAPATH)/include -I$(INCLUDE_DIR)
 LFLAGS = -lGL -lGLU -lglut -L$(CUDAPATH)/lib -lcuda -lcudart -lm -pthread -L$(ZEDPATH)/lib -lsl_zed -lsl_depthcore -lsl_calibration -lcudpp -lcudpp_hash -rdynamic -lnppc -lnpps -lnppi -lSM -lICE -lX11 -lXext -lXmu -lXi
 
-OBJECTS = $(BUILD_DIR)/main.o $(BUILD_DIR)/CloudViewer.o $(BUILD_DIR)/PointCloud.o
+OBJECTS = main.o CloudViewer.o PointCloud.o
 
 vpath %.cpp $(SRC_DIR)
 vpath %.cu $(SRC_DIR)
