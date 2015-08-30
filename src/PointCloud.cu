@@ -13,7 +13,7 @@ PointCloud::PointCloud() {
 PointCloud::PointCloud(size_t width, size_t height) {
 	Width = width;
 	Height = height;
-	pc.resize(Width * Height);
+	pc = new POINT3D[Width * Height];
 }
 
 PointCloud::~PointCloud() {
@@ -21,10 +21,18 @@ PointCloud::~PointCloud() {
 }
 
 void PointCloud::fill(const unsigned char* image, const float* depth_map, const sl::zed::StereoParameters *param) {
-	parallelFill<<< 1, Width * Height >>>(image, depth_map, &(param->LeftCam.cx), &(param->LeftCam.cy), &(param->LeftCam.fx), &(param->LeftCam.fy));
+	// allocate memory for a device copy of pc
+	POINT3D* dev_pc;
+	cudaMalloc((void**)&dev_pc, Width * Height * sizeof(POINT3D));
+	// copy host pc to device
+	cudaMemcpy(dev_pc, pc, Width * Height * sizeof(POINT3D), cudaMemcpyHostToDevice);
+	// fill
+	parallelFill<<< 1, Width * Height >>>(image, depth_map, &Width, &(param->LeftCam.cx), &(param->LeftCam.cy), &(param->LeftCam.fx), &(param->LeftCam.fy));
+	// copy device pc to host
+	cudaMemcpy(dev_pc, pc, Width * Height * sizeof(POINT3D), cudaMemcpyDeviceToHost);
 }
 
-__global__ void PointCloud::parallelFill(const unsigned char* image, const float* depth_map, const float* cx, const float* cy, const float* fx, const float* fy) {
+__global__ void parallelFill(const unsigned char* image, const float* depth_map, const int* Width, const float* cx, const float* cy, const float* fx, const float* fy) {
 	int t = threadIdx.x;
 	int j = t / Width;
 	int i = t % Width;
@@ -53,33 +61,4 @@ size_t PointCloud::GetWidth() {
 
 size_t PointCloud::GetHeight() {
 	return Height;
-}
-
-void PointCloud::WritePCDFile(std::string path, bool verbose) {
-
-	if (path.find(".pcd") == std::string::npos)
-		path.append(".pcd");
-
-	FILE *fich;
-	fopen_s(&fich, path.c_str(), "w");
-
-	fprintf(fich, "# .PCD v.7 - Point Cloud Data file format\n");
-	fprintf(fich, "VERSION .7\n");
-	fprintf(fich, "FIELDS x y z rgb\n");
-	fprintf(fich, "SIZE 4 4 4 4\n");
-	fprintf(fich, "TYPE F F F F\n");
-	fprintf(fich, "COUNT 1 1 1 1\n");
-	fprintf(fich, "WIDTH %d\n", Width);
-	fprintf(fich, "HEIGHT %d\n", Height);
-	fprintf(fich, "POINTS %d\n", Width * Height);
-	fprintf(fich, "DATA ascii\n");
-
-	if (verbose) printf("Saving PCD File ...");
-
-	for (auto it = this->cbegin(); it != this->cend(); ++it)
-		fprintf(fich, "%f %f %f %e\n", it->x, it->y, it->z, it->getColorFloat());
-
-	if (verbose) printf("Done\n");
-
-	fclose(fich);
 }

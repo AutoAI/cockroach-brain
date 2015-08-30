@@ -21,12 +21,6 @@ public:
 	size_t GetWidth();
 	size_t GetHeight();
 
-	void WritePCDFile(std::string path, bool verbose = false);
-
-	// Iterator definition
-	typedef std::vector<POINT3D>::iterator iterator;
-	typedef std::vector<POINT3D>::const_iterator const_iterator;
-
 	iterator begin() {
 		return pc.begin();
 	}
@@ -44,9 +38,7 @@ public:
 	}
 
 private:
-	std::vector<POINT3D> pc;
-
-	__global__ void parallelFill(const unsigned char* image, const float* depth_map, const float* cx, const float* cy, const float* fx, const float* fy);
+	POINT3D* pc;
 
 	int Width;
 	int Height;
