@@ -18,19 +18,23 @@ LFLAGS = -lGL -lGLU -lglut -L$(CUDAPATH)/lib -lcuda -lcudart -lm -pthread -L$(ZE
 OBJECTS = $(BUILD_DIR)/main.o $(BUILD_DIR)/CloudViewer.o $(BUILD_DIR)/PointCloud.o
 
 $(PROJECT_NAME): $(OBJECTS)
-	$(CC) $(BUILD_DIR)/*.o -o $(BUILD_DIR)/$(PROJECT_NAME) $(LFLAGS)
+	@echo "Linking..."
+	@$(CC) $(BUILD_DIR)/*.o -o $(BIN_DIR)/$(PROJECT_NAME) $(LFLAGS)
 
 $(BUILD_DIR)/main.o:
-	$(NVCC) $(NVCCFLAGS) $(SRC_DIR)/main.cu -o $(BUILD_DIR)/main.o
+	@echo "Compiling main..."
+	@$(NVCC) $(NVCCFLAGS) $(SRC_DIR)/main.cu -o $(BUILD_DIR)/main.o
 
 $(BUILD_DIR)/CloudViewer.o:
-	$(CC) $(CCFLAGS) $(SRC_DIR)/CloudViewer.cpp -o $(BUILD_DIR)/CloudViewer.o
+	@echo "Compiling CloudViewer..."
+	@$(CC) $(CCFLAGS) $(SRC_DIR)/CloudViewer.cpp -o $(BUILD_DIR)/CloudViewer.o
 
 $(BUILD_DIR)/PointCloud.o:
-	$(CC) $(CCFLAGS) $(SRC_DIR)/PointCloud.cpp -o $(BUILD_DIR)/PointCloud.o
+	@echo "Compiling PointCloud..."
+	@$(CC) $(CCFLAGS) $(SRC_DIR)/PointCloud.cpp -o $(BUILD_DIR)/PointCloud.o
 
 clean:
-	rm $(BUILD_DIR)/*.o
+	@rm $(BUILD_DIR)/*.o
 
 run:
-	./$(BIN_DIR)/$(PROJECT_NAME)
+	@./$(BIN_DIR)/$(PROJECT_NAME)
