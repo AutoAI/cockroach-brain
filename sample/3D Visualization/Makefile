@@ -6,18 +6,23 @@ CC = g++
 CUDAPATH = /usr/loca/cuda-6.5/
 
 BUILD_DIR = build
+SRC_DIR = src
+INCLUDE_DIR = include
 
-GCCFLAGS = -c -m32 -I$(CUDAPATH)/include
-NVCCFLAGS = -c -I$(CUDAPATH)/include
+GCCFLAGS = -c -m32 -I$(CUDAPATH)/include -I$(INCLUDE_DIR)
+NVCCFLAGS = -c -I$(CUDAPATH)/include -I$(INCLUDE_DIR)
 LFLAGS = -m32 -L$(CUDAPATH)/lib -lcuda -lcudart -lm
 
 all: build clean
 
-build: build_dir gpu cpu
+build: build_dir src_dir gpu cpu
 	$(CC) $(LFLAGS) -o $(BUILD_DIR)/$(PROJECT_NAME) *.o
 
 build_dir:
 	mkdir -p $(BUILD_DIR)
+
+src_dir:
+	mkdir -p $(SRC_DIR)
 
 gpu:
 	$(NVCC) $(NVCCFLAGS) *.cu
