@@ -38,6 +38,10 @@ __global__ void parallelFill(const unsigned char* image, const float* depth_map,
 }
 
 void PointCloud::fill(const unsigned char* image, const float* depth_map, const sl::zed::StereoParameters *param) {
+	for(int i = 0; i < Width * Height; i++) {
+		pc[i].r = 1;
+	}
+
 	// allocate memory for a device copy of pc
 	POINT3D* dev_pc;
 	cudaMalloc((void**)&dev_pc, Width * Height * sizeof(POINT3D));
