@@ -1,1 +1,0 @@
-/usr/local/zed/sample/3D Visualization/CMakeFiles/ZED_3D_Visualization.dir
