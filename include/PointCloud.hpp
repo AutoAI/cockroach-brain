@@ -46,7 +46,7 @@ public:
 private:
 	std::vector<POINT3D> pc;
 
-	__global__ void parallelFill(const unsigned char* image, const float* depth_map, const float* cx, const float* cy, const float* fx, const float* fy);
+	// __global__ void parallelFill(const unsigned char* image, const float* depth_map, const float* cx, const float* cy, const float* fx, const float* fy);
 
 	int Width;
 	int Height;
