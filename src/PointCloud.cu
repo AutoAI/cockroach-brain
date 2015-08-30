@@ -20,19 +20,19 @@ PointCloud::~PointCloud() {
 	
 }
 
-__global__ void parallelFill(const unsigned char* image, const float* depth_map, const int* Width, const float* cx, const float* cy, const float* fx, const float* fy) {
+__global__ void parallelFill(const unsigned char* image, const float* depth_map, const int* Width, const void** dev_pc, const float* cx, const float* cy, const float* fx, const float* fy) {
 	int t = threadIdx.x;
-	int j = t / Width;
-	int i = t % Width;
+	int j = t / *Width;
+	int i = t % *Width;
 
-	pc[t].setColor(&image[j * (Width * 4) + i * 4]);
+	dev_pc[t].setColor(&image[j * (*Width * 4) + i * 4]);
 
 	float depth = depth_map[t];
 	depth /= 1000.f; // Convert to meters;
 
-	pc[t].z = depth;
-	pc[t].x = ((i - cx) * depth) / fx;
-	pc[t].y = ((j - cy) * depth) / fy;
+	dev_pc[t].z = depth;
+	dev_pc[t].x = ((i - *cx) * *depth) / *fx;
+	dev_pc[t].y = ((j - *cy) * *depth) / *fy;
 }
 
 void PointCloud::fill(const unsigned char* image, const float* depth_map, const sl::zed::StereoParameters *param) {
@@ -42,9 +42,11 @@ void PointCloud::fill(const unsigned char* image, const float* depth_map, const 
 	// copy host pc to device
 	cudaMemcpy(dev_pc, pc, Width * Height * sizeof(POINT3D), cudaMemcpyHostToDevice);
 	// fill
-	parallelFill<<< 1, Width * Height >>>(image, depth_map, &Width, &(param->LeftCam.cx), &(param->LeftCam.cy), &(param->LeftCam.fx), &(param->LeftCam.fy));
+	parallelFill<<< 1, Width * Height >>>(image, depth_map, &Width, dev_pc, &(param->LeftCam.cx), &(param->LeftCam.cy), &(param->LeftCam.fx), &(param->LeftCam.fy));
 	// copy device pc to host
 	cudaMemcpy(dev_pc, pc, Width * Height * sizeof(POINT3D), cudaMemcpyDeviceToHost);
+	// free allocated device memory
+	
 }
 
 POINT3D PointCloud::Point(size_t i, size_t j) {
