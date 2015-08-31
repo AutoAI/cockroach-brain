@@ -19,8 +19,8 @@ HeightMap::HeightMap(int width, int depth) {
 }
 
 HeightMap::~HeightMap() {
-	free heights;
-	free frequencies;
+	free(heights);
+	free(frequencies);
 }
 
 void HeightMap::insert(POINT3D p) {
