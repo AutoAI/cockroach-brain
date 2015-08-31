@@ -74,7 +74,7 @@ POINT3D PointCloud::Point(size_t i) {
 }
 
 POINT3D PointCloud::PointHM(size_t i) {
-	return pchm[i];
+	return hmpc[i];
 }
 
 size_t PointCloud::GetNbPoints() {
