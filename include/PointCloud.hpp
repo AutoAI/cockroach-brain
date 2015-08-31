@@ -1,7 +1,6 @@
 // PointCloud.hpp
 
-#ifndef __SLPOINTCLOUD_H__
-#define __SLPOINTCLOUD_H__
+#pragma once
 
 #include <zed/utils/GlobalDefine.hpp>
 #include "utils.hpp"
@@ -14,6 +13,7 @@ public:
 	virtual ~PointCloud();
 
 	void fill(const unsigned char* image, const float* depth, const sl::zed::StereoParameters *param);
+	void genHeightMap(int width, int depth);
 
 	POINT3D Point(size_t i, size_t j);
 	POINT3D Point(size_t i);
@@ -28,4 +28,3 @@ private:
 	int Width;
 	int Height;
 };
-#endif /* __SLPOINTCLOUD_H__ */

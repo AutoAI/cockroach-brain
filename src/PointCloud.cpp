@@ -2,13 +2,9 @@
 
 #include "PointCloud.hpp"
 
-#ifdef __unix
-#define fopen_s(pFile,filename,mode) ((*(pFile))=fopen((filename),(mode)))==NULL
-#endif
+#include <stdlib>
 
-PointCloud::PointCloud() {
-
-}
+#include "HeightMap.hpp"
 
 PointCloud::PointCloud(size_t width, size_t height) {
 	Width = width;
@@ -17,7 +13,7 @@ PointCloud::PointCloud(size_t width, size_t height) {
 }
 
 PointCloud::~PointCloud() {
-	
+	free(pc);
 }
 
 void PointCloud::fill(const unsigned char* image, const float* depth_map, const sl::zed::StereoParameters *param) {
@@ -40,6 +36,31 @@ void PointCloud::fill(const unsigned char* image, const float* depth_map, const 
 			index++;
 		}
 	}
+}
+
+void PointCloud::genHeightMap(int width, int depth) {
+	HeightMap* result = new HeightMap(int width, int depth);
+	for(int i = 0; i < Width * Height; i++) {
+		result.insert(pc[i]);
+	}
+	POINT3D* pc_temp = new POINT3D[Width * Height + width * depth];
+	std::memcpy(pc_temp, pc, Width * Height * sizeof(POINT3D));
+	int x;
+	int z;
+	for(int i = 0; i < width * depth; i++) {
+		x = i % width;
+		z = i / width;
+
+		pc_temp[Width * Height + i].x = (x - VIEW_WIDTH / 2) * width / VIEW_WIDTH;
+		pc_temp[Width * Height + i].z = z * depth / VIEW_DEPTH;
+		pc_temp[Width * Height + i].y = HeightMap.heights / HEIGHTMAP_SCALE;
+
+		pc_temp[Width * Height + i].r = (HeightMap.image[i] >> 24) / 255.9f;
+		pc_temp[Width * Height + i].g = ((HeightMap.image[i] & 0xFF0000) >> 16) / 255.9f;
+		pc_temp[Width * Height + i].b = ((HeightMap.image[i] & 0xFF00) >> 8) / 255.9f;
+	}
+	free(pc);
+	pc = pc_temp;
 }
 
 POINT3D PointCloud::Point(size_t i, size_t j) {

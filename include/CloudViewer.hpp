@@ -1,7 +1,6 @@
 //CloudViewer.hpp
 
-#ifndef __CLOUD_VIEWER_INCLUDE__
-#define __CLOUD_VIEWER_INCLUDE__
+#pragma once
 
 #include "PointCloud.hpp"
 #include "utils.hpp"
@@ -96,6 +95,3 @@ private:
 	//!Thread unix
 	static void* glutThreadFunc(void* v);
 };
-
-
-#endif	/* __CLOUD_VIEWER_INCLUDE__ */
