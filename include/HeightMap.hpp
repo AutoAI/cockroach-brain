@@ -5,7 +5,7 @@
 
 #define VIEW_DEPTH 10.0f
 #define VIEW_WIDTH 10.0f
-#define HEIGHTMAP_SCALE 10.0f
+#define HEIGHTMAP_SCALE 1.0f
 
 #include <stdint.h>
 
@@ -21,7 +21,9 @@ public:
 	int width;
 	int depth;
 
-	uint32_t* image;
+	float* red;
+	float* grn;
+	float* blu;
 	float* heights;
 	char* frequencies;
 };

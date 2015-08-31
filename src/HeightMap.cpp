@@ -7,12 +7,16 @@ HeightMap::HeightMap(int width, int depth) {
 	this -> width = width;
 	this -> depth = depth;
 
-	image = new uint32_t[width * depth];
+	red = new float[width * depth];
+	grn = new float[width * depth];
+	blu = new float[width * depth];
 	heights = new float[width * depth];
 	frequencies = new char[width * depth];
 
 	for(int i = 0; i < width * depth; i++) {
-		image[i] = 0;
+		red[i] = 0;
+		grn[i] = 0;
+		blu[i] = 0;
 		heights[i] = 0;
 		frequencies[i] = 0;
 	}
@@ -39,23 +43,11 @@ void HeightMap::insert(POINT3D p) {
 		heights[index] = p.y;
 	}
 
-	// grab color, unpack it into color components
-	uint32_t pixel = image[index];
-	uint8_t red = (uint8_t)(pixel >> 24);
-	uint8_t grn = (uint8_t)((pixel & 0xFF0000) >> 16);
-	uint8_t blu = (uint8_t)((pixel & 0xFF00) >> 8);
-
 	// add color into the cumulative average (p.color is float in range [0, 1])
-	red = (red * frequencies[index] + p.r * 255.9f) / (frequencies[index] + 1);
-	grn = (grn * frequencies[index] + p.g * 255.9f) / (frequencies[index] + 1);
-	blu = (blu * frequencies[index] + p.b * 255.9f) / (frequencies[index] + 1);
+	p.r = (red[index] * frequencies[index] + p.r) / (frequencies[index] + 1);
+	p.g = (grn[index] * frequencies[index] + p.g) / (frequencies[index] + 1);
+	p.b = (blu[index] * frequencies[index] + p.b) / (frequencies[index] + 1);
 	frequencies[index]++;
-
-	// put that color back where it came from
-	uint32_t red32 = red << 24;
-	uint32_t grn32 = grn << 16;
-	uint32_t blu32 = blu << 8;
-	image[index] = red32 | grn32 | blu32;
 }
 
 void HeightMap::sobel() {
