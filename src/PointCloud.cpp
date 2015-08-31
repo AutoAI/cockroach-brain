@@ -52,9 +52,9 @@ void PointCloud::genHeightMap(int width, int depth) {
 	int x;
 	int z;
 	for(int i = 0; i < width * depth; i++) {
-		if(hm->frequencies[i] == 0) {
-			continue;
-		}
+		// if(hm->frequencies[i] == 0) {
+		// 	continue;
+		// }
 
 		x = i % width;
 		z = i / width;
