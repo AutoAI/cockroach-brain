@@ -45,7 +45,7 @@ void PointCloud::genHeightMap(int width, int depth) {
 		hm->insert(pc[i]);
 	}
 	POINT3D* hmpc = new POINT3D[width * depth];
-	std::memcpy(pc_temp, pc, Width * Height * sizeof(POINT3D));
+	// ßstd::memcpy(pc_temp, pc, Width * Height * sizeof(POINT3D));
 	int x;
 	int z;
 	for(int i = 0; i < width * depth; i++) {
