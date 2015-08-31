@@ -1,4 +1,4 @@
-// PointCloud.cu
+// PointCloud.cpp
 
 #include "PointCloud.hpp"
 
@@ -32,7 +32,7 @@ void PointCloud::fill(const unsigned char* image, const float* depth_map, const 
 		for(int i = 0; i < Width; i++) {
 			pc[index].setColor(&image[j * (Width * 4) + i * 4]);
 			depth = depth_map[j * Width + i];
-			depth /= 1000f; // convert to meters
+			depth /= 1000.0f; // convert to meters
 
 			pc[index].z = depth;
 			pc[index].x = ((i - cx) * depth) / fx;
