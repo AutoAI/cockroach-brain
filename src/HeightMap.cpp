@@ -3,8 +3,6 @@
 
 #include "HeightMap.hpp"
 
-#include <iostream>
-
 HeightMap::HeightMap(int width, int depth) {
 	this -> width = width;
 	this -> depth = depth;
