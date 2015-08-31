@@ -34,7 +34,7 @@ int main() {
 
 	// application quits when user stikes 'q'
 	while (key != 'q') {
-		camera->setConfidenceThreshold(90); // parameter is reliability index ~[1,100] with 100 as no filtering
+		camera->setConfidenceThreshold(98); // parameter is reliability index ~[1,100] with 100 as no filtering
 		camera->grab(SENSING_MODE::RAW);
 		depth = camera->retrieveMeasure(MEASURE::DEPTH);
 		imLeft = camera->retrieveImage(SIDE::LEFT);
