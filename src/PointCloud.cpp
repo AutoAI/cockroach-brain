@@ -2,6 +2,7 @@
 
 #include "PointCloud.hpp"
 
+#include <iostream>
 #include <stdlib.h>
 
 #include "HeightMap.hpp"
@@ -62,6 +63,7 @@ void PointCloud::genHeightMap(int width, int depth) {
 
 		hmpc[i].x = (x - width / 2) * VIEW_WIDTH / width;
 		hmpc[i].z = z * VIEW_DEPTH / depth;
+		std::cout << hmpc[i].z << "\t";
 		hmpc[i].y = hm->heights[i] / HEIGHTMAP_SCALE;
 
 		hmpc[i].r = hm->red[i];
