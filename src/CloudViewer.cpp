@@ -279,9 +279,6 @@ void CloudViewer::DrawTrapeze() {
 }
 
 void CloudViewer::Visualize() {
-
-	std::cout << std::endl << "----------------------------------------" << std::endl;
-
 	glPointSize(point_size);
 
 	if (data_point && !ptr_points_locked) {
