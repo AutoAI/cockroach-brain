@@ -46,11 +46,9 @@ void HeightMap::insert(POINT3D p) {
 	}
 
 	// add color into the cumulative average (p.color is float in range [0, 1])
-	std::cout << "p.r: " << p.r;
-	p.r = (red[index] * frequencies[index] + p.r) / (frequencies[index] + 1);
-	std::cout << " -> " << p.r << std::endl;
-	p.g = (grn[index] * frequencies[index] + p.g) / (frequencies[index] + 1);
-	p.b = (blu[index] * frequencies[index] + p.b) / (frequencies[index] + 1);
+	red[index] = (red[index] * frequencies[index] + p.r) / (frequencies[index] + 1);
+	grn[index] = (grn[index] * frequencies[index] + p.g) / (frequencies[index] + 1);
+	blu[index] = (blu[index] * frequencies[index] + p.b) / (frequencies[index] + 1);
 	frequencies[index]++;
 }
 
