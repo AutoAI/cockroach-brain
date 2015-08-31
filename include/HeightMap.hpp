@@ -14,6 +14,7 @@
 class HeightMap {
 public:
 	HeightMap(int width, int depth);
+	~HeightMap();
 	void insert(POINT3D p);
 	void sobel();
 
