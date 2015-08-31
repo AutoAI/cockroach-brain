@@ -44,7 +44,7 @@ void PointCloud::genHeightMap(int width, int depth) {
 	for(int i = 0; i < Width * Height; i++) {
 		hm->insert(pc[i]);
 	}
-	POINT3D* pc_temp = new POINT3D[Width * Height + width * depth];
+	POINT3D* hmpc = new POINT3D[width * depth];
 	std::memcpy(pc_temp, pc, Width * Height * sizeof(POINT3D));
 	int x;
 	int z;
@@ -52,17 +52,17 @@ void PointCloud::genHeightMap(int width, int depth) {
 		x = i % width;
 		z = i / width;
 
-		pc_temp[Width * Height + i].x = (x - VIEW_WIDTH / 2) * width / VIEW_WIDTH;
-		pc_temp[Width * Height + i].z = z * depth / VIEW_DEPTH;
-		pc_temp[Width * Height + i].y = hm->heights[i] / HEIGHTMAP_SCALE;
+		hmpc[i].x = (x - VIEW_WIDTH / 2) * width / VIEW_WIDTH;
+		hmpc[i].z = z * depth / VIEW_DEPTH;
+		hmpc[i].y = hm->heights[i] / HEIGHTMAP_SCALE;
 
-		pc_temp[Width * Height + i].r = (hm->image[i] >> 24) / 255.9f;
-		pc_temp[Width * Height + i].g = ((hm->image[i] & 0xFF0000) >> 16) / 255.9f;
-		pc_temp[Width * Height + i].b = ((hm->image[i] & 0xFF00) >> 8) / 255.9f;
+		hmpc[i].r = (hm->image[i] >> 24) / 255.9f;
+		hmpc[i].g = ((hm->image[i] & 0xFF0000) >> 16) / 255.9f;
+		hmpc[i].b = ((hm->image[i] & 0xFF00) >> 8) / 255.9f;
 	}
 	free(pc);
-	pc = pc_temp;
-	NbPoints += width * depth;
+	pc = hmpc;
+	NbPoints = width * depth;
 }
 
 POINT3D PointCloud::Point(size_t i, size_t j) {
