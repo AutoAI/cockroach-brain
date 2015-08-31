@@ -2,7 +2,7 @@
 
 #include "PointCloud.hpp"
 
-#include <stdlib>
+#include <stdlib.h>
 
 #include "HeightMap.hpp"
 
