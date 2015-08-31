@@ -46,12 +46,16 @@ void PointCloud::genHeightMap(int width, int depth) {
 	}
 	if(hmpc == NULL) {
 		hmpc = new POINT3D[width * depth];
-		NbPointsHM = width * depth;
 	}
+	NbPointsHM = 0;
 	
 	int x;
 	int z;
 	for(int i = 0; i < width * depth; i++) {
+		if(hm->frequencies[i] == 0) {
+			continue;
+		}
+
 		x = i % width;
 		z = i / width;
 
@@ -62,6 +66,8 @@ void PointCloud::genHeightMap(int width, int depth) {
 		hmpc[i].r = hm->red[i];
 		hmpc[i].g = hm->grn[i];
 		hmpc[i].b = hm->blu[i];
+
+		NbPointsHM++;
 	}
 }
 

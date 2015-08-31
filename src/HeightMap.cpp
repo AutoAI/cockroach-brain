@@ -3,6 +3,8 @@
 
 #include "HeightMap.hpp"
 
+#include <iostream>
+
 HeightMap::HeightMap(int width, int depth) {
 	this -> width = width;
 	this -> depth = depth;
@@ -44,7 +46,9 @@ void HeightMap::insert(POINT3D p) {
 	}
 
 	// add color into the cumulative average (p.color is float in range [0, 1])
+	std::cout << "p.r: " << p.r;
 	p.r = (red[index] * frequencies[index] + p.r) / (frequencies[index] + 1);
+	std::cout << " -> " << p.r << std::endl;
 	p.g = (grn[index] * frequencies[index] + p.g) / (frequencies[index] + 1);
 	p.b = (blu[index] * frequencies[index] + p.b) / (frequencies[index] + 1);
 	frequencies[index]++;
