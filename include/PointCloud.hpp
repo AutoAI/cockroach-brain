@@ -24,8 +24,9 @@ public:
 
 private:
 	POINT3D* pc;
+	POINT3D* hmpc;
 
 	int Width;
 	int Height;
-	int NbPoints;
+	int NbPointsHM;
 };
