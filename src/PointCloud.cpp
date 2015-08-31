@@ -39,9 +39,9 @@ void PointCloud::fill(const unsigned char* image, const float* depth_map, const 
 }
 
 void PointCloud::genHeightMap(int width, int depth) {
-	HeightMap* hm = new HeightMap(int width, int depth);
+	HeightMap* hm = new HeightMap(width, depth);
 	for(int i = 0; i < Width * Height; i++) {
-		result.insert(pc[i]);
+		hm.insert(pc[i]);
 	}
 	POINT3D* pc_temp = new POINT3D[Width * Height + width * depth];
 	std::memcpy(pc_temp, pc, Width * Height * sizeof(POINT3D));
@@ -53,7 +53,7 @@ void PointCloud::genHeightMap(int width, int depth) {
 
 		pc_temp[Width * Height + i].x = (x - VIEW_WIDTH / 2) * width / VIEW_WIDTH;
 		pc_temp[Width * Height + i].z = z * depth / VIEW_DEPTH;
-		pc_temp[Width * Height + i].y = hm->heights / HEIGHTMAP_SCALE;
+		pc_temp[Width * Height + i].y = hm->heights[i] / HEIGHTMAP_SCALE;
 
 		pc_temp[Width * Height + i].r = (hm->image[i] >> 24) / 255.9f;
 		pc_temp[Width * Height + i].g = ((hm->image[i] & 0xFF0000) >> 16) / 255.9f;
