@@ -294,6 +294,8 @@ void CloudViewer::Visualize() {
 				std::cout << "draw\t";
 				glColor4f(cloud->PointHM(i).r, cloud->PointHM(i).g, cloud->PointHM(i).b, 0.75);
 				glVertex3f(cloud->PointHM(i).x, -cloud->PointHM(i).y, -cloud->PointHM(i).z);
+			} else {
+				std::cout << "no draw\t";
 			}
 		}
 		glEnd();
