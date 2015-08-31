@@ -28,15 +28,15 @@ $(BIN_DIR)/$(PROJECT_NAME): $(OBJECTS)
 
 main.o: main.cpp PointCloud.hpp CloudViewer.hpp
 	@echo "Compiling main..."
-	@$(NVCC) $(NVCCFLAGS) $(SRC_DIR)/main.cpp -o $(BUILD_DIR)/main.o
+	@$(CC) $(CCFLAGS) $(SRC_DIR)/main.cpp -o $(BUILD_DIR)/main.o
 
 CloudViewer.o: CloudViewer.cpp CloudViewer.hpp PointCloud.hpp utils.hpp
 	@echo "Compiling CloudViewer..."
-	@$(NVCC) $(NVCCFLAGS) $(SRC_DIR)/CloudViewer.cpp -o $(BUILD_DIR)/CloudViewer.o
+	@$(CC) $(CCFLAGS) $(SRC_DIR)/CloudViewer.cpp -o $(BUILD_DIR)/CloudViewer.o
 
-PointCloud.o: PointCloud.cu PointCloud.hpp utils.hpp
+PointCloud.o: PointCloud.cpp PointCloud.hpp utils.hpp
 	@echo "Compiling PointCloud..."
-	@$(NVCC) $(NVCCFLAGS) $(SRC_DIR)/PointCloud.cu -o $(BUILD_DIR)/PointCloud.o
+	@$(CC) $(CCFLAGS) $(SRC_DIR)/PointCloud.cpp -o $(BUILD_DIR)/PointCloud.o
 
 clean:
 	@rm $(BUILD_DIR)/*.o
