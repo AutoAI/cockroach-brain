@@ -73,6 +73,10 @@ POINT3D PointCloud::Point(size_t i) {
 	return pc[i];
 }
 
+POINT3D PointCloud::PointHM(size_t i) {
+	return pchm[i];
+}
+
 size_t PointCloud::GetNbPoints() {
 	return Width * Height;
 }

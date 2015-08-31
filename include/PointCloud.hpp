@@ -17,6 +17,7 @@ public:
 
 	POINT3D Point(size_t i, size_t j);
 	POINT3D Point(size_t i);
+	POINT3D PointHM(size_t i);
 
 	size_t GetNbPoints();
 	size_t GetNbPointsHM();
