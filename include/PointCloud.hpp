@@ -19,6 +19,7 @@ public:
 	POINT3D Point(size_t i);
 
 	size_t GetNbPoints();
+	size_t GetNbPointsHM();
 	size_t GetWidth();
 	size_t GetHeight();
 
