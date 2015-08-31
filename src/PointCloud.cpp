@@ -39,7 +39,7 @@ void PointCloud::fill(const unsigned char* image, const float* depth_map, const 
 }
 
 void PointCloud::genHeightMap(int width, int depth) {
-	HeightMap* result = new HeightMap(int width, int depth);
+	HeightMap* hm = new HeightMap(int width, int depth);
 	for(int i = 0; i < Width * Height; i++) {
 		result.insert(pc[i]);
 	}
@@ -53,11 +53,11 @@ void PointCloud::genHeightMap(int width, int depth) {
 
 		pc_temp[Width * Height + i].x = (x - VIEW_WIDTH / 2) * width / VIEW_WIDTH;
 		pc_temp[Width * Height + i].z = z * depth / VIEW_DEPTH;
-		pc_temp[Width * Height + i].y = HeightMap.heights / HEIGHTMAP_SCALE;
+		pc_temp[Width * Height + i].y = hm->heights / HEIGHTMAP_SCALE;
 
-		pc_temp[Width * Height + i].r = (HeightMap.image[i] >> 24) / 255.9f;
-		pc_temp[Width * Height + i].g = ((HeightMap.image[i] & 0xFF0000) >> 16) / 255.9f;
-		pc_temp[Width * Height + i].b = ((HeightMap.image[i] & 0xFF00) >> 8) / 255.9f;
+		pc_temp[Width * Height + i].r = (hm->image[i] >> 24) / 255.9f;
+		pc_temp[Width * Height + i].g = ((hm->image[i] & 0xFF0000) >> 16) / 255.9f;
+		pc_temp[Width * Height + i].b = ((hm->image[i] & 0xFF00) >> 8) / 255.9f;
 	}
 	free(pc);
 	pc = pc_temp;
