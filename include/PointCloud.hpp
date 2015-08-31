@@ -27,4 +27,5 @@ private:
 
 	int Width;
 	int Height;
+	int NbPoints;
 };

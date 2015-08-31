@@ -9,6 +9,7 @@
 PointCloud::PointCloud(size_t width, size_t height) {
 	Width = width;
 	Height = height;
+	NbPoints = width * height;
 	pc = new POINT3D[Width * Height];
 }
 
@@ -61,6 +62,7 @@ void PointCloud::genHeightMap(int width, int depth) {
 	}
 	free(pc);
 	pc = pc_temp;
+	NbPoints += width * depth;
 }
 
 POINT3D PointCloud::Point(size_t i, size_t j) {
@@ -72,7 +74,7 @@ POINT3D PointCloud::Point(size_t i) {
 }
 
 size_t PointCloud::GetNbPoints() {
-	return Width * Height;
+	return NbPoints;
 }
 
 size_t PointCloud::GetWidth() {
