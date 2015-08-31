@@ -36,8 +36,8 @@ int main() {
 	while (key != 'q') {
 		camera->setConfidenceThreshold(90); // parameter is reliability index ~[1,100] with 100 as no filtering
 		camera->grab(SENSING_MODE::RAW);
-		depth = camera->retrieveMeasure_gpu(MEASURE::DEPTH);
-		imLeft = camera->retrieveImage_gpu(SIDE::LEFT);
+		depth = camera->retrieveMeasure(MEASURE::DEPTH);
+		imLeft = camera->retrieveImage(SIDE::LEFT);
 		cloud->fill(imLeft.data, (float*) depth.data, camera->getParameters());
 		viewer->AddData(cloud);
 
