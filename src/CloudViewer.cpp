@@ -2,6 +2,8 @@
 
 #include "CloudViewer.hpp"
 
+#include <iostream>
+
 using namespace sl::zed;
 
 CloudViewer* ptr;
@@ -279,12 +281,15 @@ void CloudViewer::DrawTrapeze() {
 }
 
 void CloudViewer::Visualize() {
+	std::cout << "\n---------------------------\n";
+
 	glPointSize(point_size);
 
 	if (data_point && !ptr_points_locked) {
 		ptr_points_locked = true;
 		glBegin(GL_POINTS);
 		for (int i = 0; i < cloud->GetNbPointsHM(); i++) {
+			std::cout << cloud->PointHM(i).z << "\t";
 			if (cloud->PointHM(i).z > 0) {
 				glColor4f(cloud->PointHM(i).r, cloud->PointHM(i).g, cloud->PointHM(i).b, 0.75);
 				glVertex3f(cloud->PointHM(i).x, -cloud->PointHM(i).y, -cloud->PointHM(i).z);
