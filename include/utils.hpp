@@ -6,8 +6,6 @@
 
 #include "GL/glut.h"    /* OpenGL Utility Toolkit header */
 
-#define M_PI 3.141592653
-
 struct POINT3D {
     float x;
 	float y;
