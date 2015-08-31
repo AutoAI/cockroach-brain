@@ -55,8 +55,8 @@ void PointCloud::genHeightMap(int width, int depth) {
 		x = i % width;
 		z = i / width;
 
-		hmpc[i].x = (x - VIEW_WIDTH / 2) * width / VIEW_WIDTH;
-		hmpc[i].z = z * depth / VIEW_DEPTH;
+		hmpc[i].x = (x - width / 2) * VIEW_WIDTH / width;
+		hmpc[i].z = z * VIEW_DEPTH / depth;
 		hmpc[i].y = hm->heights[i] / HEIGHTMAP_SCALE;
 
 		hmpc[i].r = hm->red[i];

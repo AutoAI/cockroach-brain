@@ -28,11 +28,11 @@ HeightMap::~HeightMap() {
 }
 
 void HeightMap::insert(POINT3D p) {
-	int z_index = (int)(p.z * VIEW_DEPTH / depth);
+	int z_index = (int)(p.z * depth / VIEW_DEPTH);
 	if(z_index < 0 || z_index >= depth) {
 		return;
 	}
-	int x_index = (int)(p.x * VIEW_WIDTH / width + VIEW_WIDTH / 2);
+	int x_index = (int)(p.x * width / VIEW_WIDTH + width / 2);
 	if(x_index < 0 || x_index >= width) {
 		return;
 	}
