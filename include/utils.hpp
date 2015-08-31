@@ -1,14 +1,12 @@
 // utils.h
 
-#ifndef __UTILS_HPP__
-#define __UTILS_HPP__
+#pragma once
+
+#include <math.h>
 
 #include "GL/glut.h"    /* OpenGL Utility Toolkit header */
 
-#ifdef WIN32
 #define M_PI 3.141592653
-#endif
-
 
 struct POINT3D {
     float x;
@@ -138,5 +136,3 @@ public:
         return r2d(s);
     }
 };
-
-#endif /*__UTILS_HPP__*/

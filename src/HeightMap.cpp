@@ -7,7 +7,7 @@ HeightMap::HeightMap(int width, int depth) {
 	this -> width = width;
 	this -> depth = depth;
 
-	image = new uint32_t[width * dpeth];
+	image = new uint32_t[width * depth];
 	heights = new float[width * depth];
 	frequencies = new char[width * depth];
 
