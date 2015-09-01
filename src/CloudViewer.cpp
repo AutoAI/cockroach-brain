@@ -141,6 +141,7 @@ CloudViewer::CloudViewer() {
 	Rotate = false;
 	Zoom = false;
 	invertMotion = false;
+	floor = 0;
 
 	setupCallback();
 
@@ -306,6 +307,7 @@ void CloudViewer::Visualize() {
 			}
 		}
 		glEnd();
+		floor = temp_floor
 		ptr_points_locked = false;
 	}
 }
