@@ -56,7 +56,7 @@ void PointCloud::genHeightMap(int width, int depth) {
 	std::cout << "\n---------------------------\n";
 
 	for(int i = 0; i < width * depth; i++) {
-		if(hm->frequencies[i] == 0) {
+		if(hm->red[i] + hm->grn[i] + hm->blu[i] == 0) {
 			continue;
 		}
 
@@ -74,6 +74,7 @@ void PointCloud::genHeightMap(int width, int depth) {
 
 		NbPointsHM++;
 	}
+	free(hm);
 }
 
 POINT3D PointCloud::Point(size_t i, size_t j) {
