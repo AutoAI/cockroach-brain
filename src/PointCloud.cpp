@@ -15,7 +15,8 @@ PointCloud::PointCloud(size_t width, size_t height) {
 }
 
 PointCloud::~PointCloud() {
-	free(pc);
+	delete pc;
+	delete hmpc;
 }
 
 void PointCloud::fill(const unsigned char* image, const float* depth_map, const sl::zed::StereoParameters *param) {
@@ -71,7 +72,7 @@ void PointCloud::genHeightMap(int width, int depth) {
 
 		NbPointsHM++;
 	}
-	free(hm);
+	delete hm;
 }
 
 POINT3D PointCloud::Point(size_t i, size_t j) {

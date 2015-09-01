@@ -23,8 +23,11 @@ HeightMap::HeightMap(int width, int depth) {
 }
 
 HeightMap::~HeightMap() {
-	free(heights);
-	free(frequencies);
+	delete red;
+	delete grn;
+	delete blu;
+	delete heights;
+	delete frequencies;
 }
 
 void HeightMap::insert(POINT3D p) {
