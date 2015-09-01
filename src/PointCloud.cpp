@@ -53,6 +53,8 @@ void PointCloud::genHeightMap(int width, int depth) {
 	int x;
 	int z;
 
+	std::cout << "\n---------------------------\n";
+
 	for(int i = 0; i < width * depth; i++) {
 		if(hm->frequencies[i] == 0) {
 			continue;
@@ -63,6 +65,7 @@ void PointCloud::genHeightMap(int width, int depth) {
 
 		hmpc[i].x = (x - width / 2) * VIEW_WIDTH / width;
 		hmpc[i].z = z * VIEW_DEPTH / depth;
+		std::cout << hmpc[i].z << "\t";
 		hmpc[i].y = hm->heights[i] / HEIGHTMAP_SCALE;
 
 		hmpc[i].r = hm->red[i];
