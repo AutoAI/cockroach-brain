@@ -134,7 +134,7 @@ void TrackBallCamera::setAngleX() {
 
 CloudViewer::CloudViewer() {
 	camera = TrackBallCamera(vect3(0.0f, .1f, .5f), vect3(0.0f, 0.0f, 0.0f));
-	point_size = 2;
+	point_size = 5;
 	data_point = false;
 	ptr_points_locked = false;
 	Translate = false;

@@ -39,7 +39,7 @@ int main() {
 		depth = camera->retrieveMeasure(MEASURE::DEPTH);
 		imLeft = camera->retrieveImage(SIDE::LEFT);
 		cloud->fill(imLeft.data, (float*) depth.data, camera->getParameters());
-		cloud->genHeightMap(64, 64);
+		cloud->genHeightMap(640, 640);
 		viewer->AddData(cloud);
 
 		// Update the value of key so that we can quit when the user strikes 'q'
