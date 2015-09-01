@@ -295,8 +295,8 @@ void CloudViewer::Visualize() {
 			}
 			if (cloud->PointHM(i).z > 0) {
 				glColor4f(cloud->PointHM(i).r, cloud->PointHM(i).g, cloud->PointHM(i).b, 0.75);
-				glVertex3f(cloud->PointHM(i).x, 0,                    -cloud->PointHM(i).z);
-				glVertex3f(cloud->PointHM(i).x, cloud->PointHM(i).y, -cloud->PointHM(i).z);
+				glVertex3f(cloud->PointHM(i).x, 5,                    -cloud->PointHM(i).z);
+				glVertex3f(cloud->PointHM(i).x, -cloud->PointHM(i).y, -cloud->PointHM(i).z);
 			}
 		}
 		glEnd();
