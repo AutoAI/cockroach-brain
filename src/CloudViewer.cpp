@@ -307,7 +307,7 @@ void CloudViewer::Visualize() {
 			}
 		}
 		glEnd();
-		floor = temp_floor
+		floor = temp_floor;
 		ptr_points_locked = false;
 	}
 }
