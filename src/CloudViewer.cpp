@@ -285,7 +285,7 @@ void CloudViewer::Visualize() {
 
 	if (data_point && !ptr_points_locked) {
 		ptr_points_locked = true;
-		glBegin(GL_POINTS);
+		glBegin(GL_LINES);
 		int skipped = 0;
 		for (int i = 0; i < cloud->GetNbPointsHM() + skipped; i++) {
 			POINT3D temp = cloud->PointHM(i);
@@ -295,6 +295,7 @@ void CloudViewer::Visualize() {
 			}
 			if (cloud->PointHM(i).z > 0) {
 				glColor4f(cloud->PointHM(i).r, cloud->PointHM(i).g, cloud->PointHM(i).b, 0.75);
+				glVertex3f(cloud->PointHM(i).x, 0,                    -cloud->PointHM(i).z);
 				glVertex3f(cloud->PointHM(i).x, -cloud->PointHM(i).y, -cloud->PointHM(i).z);
 			}
 		}
