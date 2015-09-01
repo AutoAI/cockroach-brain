@@ -92,6 +92,8 @@ private:
 	unsigned char keyPressed;
 	bool invertMotion;
 
+	float floor;
+
 	//!Thread unix
 	static void* glutThreadFunc(void* v);
 };
