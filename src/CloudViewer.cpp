@@ -196,6 +196,7 @@ void CloudViewer::Init() {
 	glutCreateWindow("ZED 3D Viewer");
 
 	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_MULTISAMPLE);
 
 	glMatrixMode(GL_PROJECTION);
 	gluPerspective(75.0,

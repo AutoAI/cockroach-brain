@@ -3,9 +3,9 @@
 
 #pragma once
 
-#define VIEW_DEPTH 10.0f
+#define VIEW_DEPTH 20.0f
 #define VIEW_WIDTH 10.0f
-#define HEIGHTMAP_SCALE 1.0f
+#define HEIGHTMAP_SCALE 0.1f
 
 #include <stdint.h>
 
