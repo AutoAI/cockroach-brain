@@ -5,7 +5,7 @@
 
 #define VIEW_DEPTH 20.0f
 #define VIEW_WIDTH 10.0f
-#define HEIGHTMAP_SCALE 0.1f
+#define HEIGHTMAP_SCALE 10.0f
 
 #include <stdint.h>
 
