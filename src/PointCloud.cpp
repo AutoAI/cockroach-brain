@@ -9,6 +9,7 @@ PointCloud::PointCloud(size_t width, size_t height) {
 	this->width = width;
 	this->height = height;
 	pc = new POINT3D[width * height];
+	printf("pc = new POINT3D[%d]\n", width * height);
 }
 
 PointCloud::~PointCloud() {
