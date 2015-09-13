@@ -33,7 +33,7 @@ main.o: main.cpp PointCloud.hpp CloudViewer.hpp HeightMap.hpp
 	@echo "Compiling main..."
 	@$(CC) $(CCFLAGS) $(SRC_DIR)/main.cpp -o $(BUILD_DIR)/main.o
 
-CloudViewer.o: CloudViewer.cpp CloudViewer.hpp PointCloud.hpp utils.hpp
+CloudViewer.o: CloudViewer.cpp CloudViewer.hpp PointCloud.hpp HeightMap.hpp utils.hpp
 	@echo "Compiling CloudViewer..."
 	@$(CC) $(CCFLAGS) $(SRC_DIR)/CloudViewer.cpp -o $(BUILD_DIR)/CloudViewer.o
 

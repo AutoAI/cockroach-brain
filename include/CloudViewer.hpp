@@ -3,8 +3,11 @@
 #pragma once
 
 #include "PointCloud.hpp"
+#include "HeightMap.hpp"
 #include "utils.hpp"
+
 #include <math.h>
+
 #include "GL/glut.h"    /* OpenGL Utility Toolkit header */
 
 class TrackBallCamera {
