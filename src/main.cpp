@@ -81,6 +81,7 @@ int main() {
 		cloud->fill(imLeft.data, (float*) depth.data, camera->getParameters());
 		printf("fill hm\n");
 		cloud->fillHeightMap(heightMap);
+		printf("add data\n");
 
 		// for(int i = 0; i < 32 * 64; i+=3) {
 		// 	printf("(%f, %f, %f), ", heightMap->pc[i].x, heightMap->pc[i].y, heightMap->pc[i].z);
@@ -96,6 +97,7 @@ int main() {
 		key = 'q';
 	}
 
+	printf("quitting\n");
 	delete camera;
 	delete cloud;
 	delete viewer;
