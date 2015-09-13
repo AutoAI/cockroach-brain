@@ -301,16 +301,11 @@ void CloudViewer::VisualizeCloud() {
 }
 
 void CloudViewer::VisualizeHeightMap() {
-	printf("visualizing height map... ");
 	glLineWidth(2);
 	if (data_point && !ptr_points_locked) {
-		printf("success!\n");
 		ptr_points_locked = true;
 		glBegin(GL_LINES);
 		for (int i = 0; i < heightMap->getNumPoints(); i++) {
-			if(i%40 == 0) {
-				printf("40 ");
-			}
 			if(heightMap->frequencies[i] == 0) {
 				continue;
 			}
@@ -325,10 +320,7 @@ void CloudViewer::VisualizeHeightMap() {
 		}
 		glEnd();
 		ptr_points_locked = false;
-	} else {
-		printf("failed!");
 	}
-	printf("\n");
 }
 
 void CloudViewer::VisualizeSobel() {
