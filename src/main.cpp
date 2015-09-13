@@ -90,7 +90,7 @@ int main() {
 		// }
 
 		// heightMap->calcSobel(5);
-		viewer->AddData(cloud);
+		viewer->AddData(heightMap);
 
 		// Update the value of key so that we can quit when the user strikes 'q'
 		key = viewer->getKey();
