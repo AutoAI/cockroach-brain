@@ -66,7 +66,7 @@ int main() {
 	int width = camera->getImageSize().width;
 	int height = camera->getImageSize().height;
 	PointCloud *cloud = new PointCloud(width, height);
-	Heightmap *heightMap = NULL;
+	HeightMap *heightMap = NULL;
 	CloudViewer *viewer = new CloudViewer();
 	int key = ' ';
 	Mat depth, imLeft;
