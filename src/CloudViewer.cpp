@@ -292,7 +292,7 @@ void CloudViewer::VisualizeCloud() {
 			// don't draw points behind us
 			if (temp.z > 0) {
 				glColor4f(temp.r, temp.g, temp.b, 0.7);
-				glVertex3f(temp.x, temp.y, temp.z);
+				glVertex3f(-temp.x, -temp.y, -temp.z);
 			}
 		}
 		glEnd();
