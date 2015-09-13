@@ -66,8 +66,8 @@ int main() {
 	int width = camera->getImageSize().width;
 	int height = camera->getImageSize().height;
 	PointCloud *cloud = new PointCloud(width, height);
-	HeightMap *heightMap = new HeightMap(320, 640);
-	// CloudViewer *viewer = new CloudViewer();
+	HeightMap *heightMap = new HeightMap(32, 64);
+	CloudViewer *viewer = new CloudViewer();
 	int key = ' ';
 	Mat depth, imLeft;
 
@@ -82,21 +82,20 @@ int main() {
 		printf("fill hm\n");
 		cloud->fillHeightMap(heightMap);
 
-		for(int i = 0; i < 320 * 640; i++) {
+		for(int i = 0; i < 32 * 64; i++) {
 			printf("(%f, %f, %f)\n", heightMap->pc[i].x, heightMap->pc[i].y, heightMap->pc[i].z);
 		}
-		printf("-----------------------------------------------------------------\n");
 
 		// heightMap->calcSobel(5);
-		// viewer->AddData(heightMap);
+		viewer->AddData(cloud);
 
 		// Update the value of key so that we can quit when the user strikes 'q'
-		// key = viewer->getKey();
+		key = viewer->getKey();
 		key = 'q';
 	}
 
 	delete camera;
 	delete cloud;
-	// delete viewer;
+	delete viewer;
 	return 0;
 }
