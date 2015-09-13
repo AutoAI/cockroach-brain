@@ -77,9 +77,12 @@ int main() {
 		camera->grab(SENSING_MODE::RAW);
 		depth = camera->retrieveMeasure(MEASURE::DEPTH);
 		imLeft = camera->retrieveImage(SIDE::LEFT);
+		printf("\t\tfilling cloud...\n");
 		cloud->fill(imLeft.data, (float*) depth.data, camera->getParameters());
+		printf("\t\tfilling height map...\n");
 		cloud->fillHeightMap(heightMap);
 		// heightMap->calcSobel(5);
+		printf("\t\tadding data to viewer...\n");
 		viewer->AddData(heightMap);
 
 		// Update the value of key so that we can quit when the user strikes 'q'
