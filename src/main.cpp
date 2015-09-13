@@ -16,7 +16,7 @@ using namespace sl::zed;
 using namespace std;
 
 int main() {
-	Camera* camera = new Camera(VGA,15.0);
+	Camera* camera = new Camera(HD720, 15.0);
 	ERRCODE code = camera->init(MODE::PERFORMANCE, 0);
 
 	if (code != SUCCESS) {
