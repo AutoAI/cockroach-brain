@@ -301,6 +301,7 @@ void CloudViewer::VisualizeCloud() {
 }
 
 void CloudViewer::VisualizeHeightMap() {
+	printf("zip\n");
 	glLineWidth(2);
 	if (data_point && !ptr_points_locked) {
 		ptr_points_locked = true;
