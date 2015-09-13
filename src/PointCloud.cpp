@@ -25,7 +25,6 @@ void PointCloud::fill(const unsigned char* image, const float* depth_map, const 
 	int index = 0;
 	for(int j = 0; j < height; j++) {
 		for(int i = 0; i < width; i++) {
-			index = j * width + i;
 			pc[index].setColor(&image[j * (width * 4) + i * 4]);
 			depth = depth_map[j * width + i];
 			depth /= 1000.0f; // convert to meters
@@ -33,6 +32,8 @@ void PointCloud::fill(const unsigned char* image, const float* depth_map, const 
 			pc[index].z = depth;
 			pc[index].x = ((i - cx) * depth) / fx;
 			pc[index].y = ((j - cy) * depth) / fy;
+
+			printf("fill:   pc[%d] = (%f, %f, %f)\n", index, pc[index].x, pc[index].y, pc[index].z);
 			index++;
 		}
 	}
@@ -41,7 +42,7 @@ void PointCloud::fill(const unsigned char* image, const float* depth_map, const 
 HeightMap* PointCloud::fillHeightMap(HeightMap *hm) {
 	hm->clear();
 	for(int i = 0; i < width * height; i++) {
-		printf("pc[%d] = (%f, %f, %f)\n", i, pc[i].x, pc[i].y, pc[i].z);
+		// printf("fillhm: pc[%d] = (%f, %f, %f)\n", i, pc[i].x, pc[i].y, pc[i].z);
 		hm->insert(pc[i]);
 	}
 	return hm;
