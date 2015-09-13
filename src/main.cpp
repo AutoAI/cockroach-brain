@@ -80,8 +80,9 @@ int main() {
 		cloud->fill(imLeft.data, (float*) depth.data, camera->getParameters());
 		delete heightMap;
 		heightMap = cloud->genHeightMap(320, 640);
-		heightMap->calcSobel(5);
+		// heightMap->calcSobel(5);
 		viewer->AddData(heightMap);
+		printf("ZOP!\n");
 
 		// Update the value of key so that we can quit when the user strikes 'q'
 		key = viewer->getKey();
