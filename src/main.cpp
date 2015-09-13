@@ -77,7 +77,9 @@ int main() {
 		camera->grab(SENSING_MODE::RAW);
 		depth = camera->retrieveMeasure(MEASURE::DEPTH);
 		imLeft = camera->retrieveImage(SIDE::LEFT);
+		printf("fill\n");
 		cloud->fill(imLeft.data, (float*) depth.data, camera->getParameters());
+		printf("fill hm\n");
 		cloud->fillHeightMap(heightMap);
 		// heightMap->calcSobel(5);
 		viewer->AddData(heightMap);
