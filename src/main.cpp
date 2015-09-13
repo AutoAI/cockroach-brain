@@ -92,6 +92,7 @@ int main() {
 
 		// Update the value of key so that we can quit when the user strikes 'q'
 		// key = viewer->getKey();
+		key = 'q';
 	}
 
 	delete camera;
