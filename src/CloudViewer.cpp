@@ -306,14 +306,12 @@ void CloudViewer::VisualizeHeightMap() {
 		ptr_points_locked = true;
 		glBegin(GL_LINES);
 		for (int i = 0; i < heightMap->getNumPoints(); i++) {
-			printf("drawing: ");
 			if(heightMap->frequencies[i] == 0) {
 				continue;
 			}
 			POINT3D temp = heightMap->point(i);
 			// draw cells as short vertial lines (and don't draw points behind us)
 			if (temp.z > 0) {
-				printf("(%f, %f, %f)\n", temp.x, temp.y, temp.z);
 				glColor4f(0.0, 0.0, 0.0, 0.0);
 				glVertex3f(temp.x, -(temp.y-.2), -temp.z);
 				glColor4f(temp.r, temp.g, temp.b, 0.7);
