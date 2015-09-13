@@ -22,8 +22,6 @@ void PointCloud::fill(const unsigned char* image, const float* depth_map, const 
 	float fx = param->LeftCam.fx;
 	float fy = param->LeftCam.fy;
 
-	printf("height = %d, width = %d\n", height, width);
-
 	int index = 0;
 	for(int j = 0; j < height; j++) {
 		for(int i = 0; i < width; i++) {
@@ -35,7 +33,6 @@ void PointCloud::fill(const unsigned char* image, const float* depth_map, const 
 			pc[index].x = ((i - cx) * depth) / fx;
 			pc[index].y = ((j - cy) * depth) / fy;
 
-			printf("fill:   pc[%d] = (%f, %f, %f)\n", index, pc[index].x, pc[index].y, pc[index].z);
 			index++;
 		}
 	}
