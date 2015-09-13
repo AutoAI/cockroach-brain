@@ -17,8 +17,8 @@ public:
 	POINT3D point(size_t i);
 
 	size_t getNumPoints();
-	size_t width();
-	size_t height();
+	size_t getWidth();
+	size_t getHeight();
 
 private:
 	POINT3D* pc;

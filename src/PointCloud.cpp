@@ -74,10 +74,10 @@ size_t PointCloud::getNumPoints() {
 	return width * height;
 }
 
-size_t PointCloud::width() {
+size_t PointCloud::getWidth() {
 	return width;
 }
 
-size_t PointCloud::height() {
+size_t PointCloud::getHeight() {
 	return height;
 }
