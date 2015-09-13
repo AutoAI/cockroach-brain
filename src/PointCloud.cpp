@@ -22,7 +22,7 @@ void PointCloud::fill(const unsigned char* image, const float* depth_map, const 
 	float fx = param->LeftCam.fx;
 	float fy = param->LeftCam.fy;
 
-	printf("YOP!\n");
+	printf("height = %d, width = %d\n", height, width);
 
 	int index = 0;
 	for(int j = 0; j < height; j++) {
