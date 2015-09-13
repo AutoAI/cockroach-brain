@@ -12,6 +12,7 @@
 
 #include "PointCloud.hpp"
 #include "CloudViewer.hpp"
+#include "Heightmap.hpp"
 
 using namespace sl::zed;
 using namespace std;

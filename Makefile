@@ -29,7 +29,7 @@ $(BIN_DIR)/$(PROJECT_NAME): $(OBJECTS)
 	@echo "Linking..."
 	@$(CC) $(BUILD_DIR)/*.o -o $(BIN_DIR)/$(PROJECT_NAME) $(LFLAGS)
 
-main.o: main.cpp PointCloud.hpp CloudViewer.hpp
+main.o: main.cpp PointCloud.hpp CloudViewer.hpp HeightMap.hpp
 	@echo "Compiling main..."
 	@$(CC) $(CCFLAGS) $(SRC_DIR)/main.cpp -o $(BUILD_DIR)/main.o
 
