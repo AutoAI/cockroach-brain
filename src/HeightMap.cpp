@@ -44,6 +44,9 @@ void HeightMap::insert(POINT3D p) {
 		return;
 	}
 	int x_index = (int)(p.x * width / VIEW_WIDTH + width / 2);
+	if(p.x < 0) {
+		printf("x_index = %d\n", x_index);
+	}
 	if(x_index < 0 || x_index >= width) {
 		return;
 	}
