@@ -292,7 +292,7 @@ void CloudViewer::VisualizeCloud() {
 			// don't draw points behind us
 			if (temp.z > 0) {
 				glColor4f(temp.r, temp.g, temp.b, 0.7);
-				glVertex3f(-temp.x, -temp.y, -temp.z);
+				glVertex3f(temp.x, -temp.y, -temp.z);
 			}
 		}
 		glEnd();
@@ -315,9 +315,9 @@ void CloudViewer::VisualizeHeightMap() {
 			if (temp.z > 0) {
 				printf("(%f, %f, %f)\n", temp.x, temp.y, temp.z);
 				glColor4f(0.0, 0.0, 0.0, 0.0);
-				glVertex3f(temp.x, temp.y-.2, temp.z);
+				glVertex3f(temp.x, -(temp.y-.2), -temp.z);
 				glColor4f(temp.r, temp.g, temp.b, 0.7);
-				glVertex3f(temp.x, temp.y, temp.z);
+				glVertex3f(temp.x, -temp.y, -temp.z);
 			}
 		}
 		glEnd();
@@ -344,7 +344,7 @@ void CloudViewer::VisualizeSobel() {
 			// draw cells as short vertial lines (and don't draw points behind us)
 			if (temp.z > 0) {
 				glColor4f(color, color, color, 1.0);
-				glVertex3f(temp.x, 0, temp.z);
+				glVertex3f(temp.x, 0, -temp.z);
 			}
 		}
 		glEnd();
