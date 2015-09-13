@@ -38,7 +38,7 @@ void PointCloud::fill(const unsigned char* image, const float* depth_map, const 
 }
 
 HeightMap* PointCloud::fillHeightMap(HeightMap *hm) {
-	hm.clear();
+	hm->clear();
 	for(int i = 0; i < width * height; i++) {
 		hm->insert(pc[i]);
 	}
