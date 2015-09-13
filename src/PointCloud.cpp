@@ -5,8 +5,6 @@
 #include <iostream>
 #include <stdlib.h>
 
-#include "heightMap.hpp"
-
 PointCloud::PointCloud(size_t width, size_t height) {
 	width = width;
 	height = height;
