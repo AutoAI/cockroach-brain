@@ -40,7 +40,7 @@ void PointCloud::fill(const unsigned char* image, const float* depth_map, const 
 HeightMap* PointCloud::fillHeightMap(HeightMap *hm) {
 	hm->clear();
 	for(int i = 0; i < width * height; i++) {
-		printf("pc[%d] = %f\n", i, pc[i]);
+		printf("pc[%d] = (%f, %f, %f)\n", i, pc[i].x, pc[i].y, pc[i].z);
 		hm->insert(pc[i]);
 	}
 	return hm;
