@@ -41,6 +41,7 @@ HeightMap* PointCloud::fillHeightMap(HeightMap *hm) {
 	printf("\t\tfilling height map... ");
 	hm->clear();
 	for(int i = 0; i < width * height; i++) {
+		printf("pc[%d] = %f\n", i, pc[i]);
 		hm->insert(pc[i]);
 	}
 	printf("done\n");
