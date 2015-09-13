@@ -38,7 +38,7 @@ void HeightMap::clear() {
 }
 
 void HeightMap::insert(POINT3D p) {
-	// printf("\t\tinserting... ");
+	printf("\t\tinserting... ");
 	// make sure the point doesn't lie outside the map
 	int z_index = (int)(p.z * depth / VIEW_DEPTH);
 	if(z_index < 0 || z_index >= depth) {
@@ -60,7 +60,7 @@ void HeightMap::insert(POINT3D p) {
 	pc[i].g = (pc[i].g * frequencies[i] + p.g) / (frequencies[i] + 1);
 	pc[i].b = (pc[i].b * frequencies[i] + p.b) / (frequencies[i] + 1);
 	frequencies[i]++;
-	// printf("done\n");
+	printf("done\n");
 }
 
 POINT3D HeightMap::point(size_t i) {
