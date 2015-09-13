@@ -21,7 +21,7 @@ float controlVal(std::vector<double> *inverseRadiiPtr, std::vector<double> *cont
 	std::vector<double> inverseRadii = *inverseRadiiPtr;
 	std::vector<double> controlVals = *controlValsPtr;
 	// linear search the list of controlval-radius pairs for correct span
-	for(int i = 0; i < inverseRadii.size()-1, i++) {
+	for(int i = 0; i < inverseRadii.size()-1; i++) {
 		if(inverseRadius >= inverseRadii[i] && inverseRadius <= inverseRadii[i+1]) {
 			double factor = (inverseRadius - inverseRadii[i])/(inverseRadii[i+1] - inverseRadii[i]);
 			return factor * inverseRadii[i+1] + (1 - factor) * inverseRadii[i];
