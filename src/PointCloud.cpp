@@ -25,6 +25,7 @@ void PointCloud::fill(const unsigned char* image, const float* depth_map, const 
 	int index = 0;
 	for(int j = 0; j < height; j++) {
 		for(int i = 0; i < width; i++) {
+			index = j * width + i;
 			pc[index].setColor(&image[j * (width * 4) + i * 4]);
 			depth = depth_map[j * width + i];
 			depth /= 1000.0f; // convert to meters
