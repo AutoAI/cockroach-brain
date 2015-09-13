@@ -25,7 +25,6 @@ public:
 
 	char* frequencies;
 	bool* sobel;
-
-private:
+	
 	POINT3D* pc;
 };
