@@ -5,7 +5,6 @@
 
 #define VIEW_DEPTH 20.0f
 #define VIEW_WIDTH 10.0f
-#define HEIGHTMAP_SCALE 2.0f
 
 #include <stdint.h>
 
@@ -16,14 +15,14 @@ public:
 	HeightMap(int width, int depth);
 	~HeightMap();
 	void insert(POINT3D p);
-	void sobel();
+	POINT3D point(size_t i);
+	size_t getNumPoints();
+	void calcSobel(float threshold);
 
 	int width;
 	int depth;
 
-	float* red;
-	float* grn;
-	float* blu;
-	float* heights;
 	char* frequencies;
+	bool* sobel;
+	POINT3D* pc;
 };

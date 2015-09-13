@@ -1,4 +1,4 @@
-//CloudViewer.hpp
+// CloudViewer.hpp
 
 #pragma once
 
@@ -46,6 +46,7 @@ public:
 	CloudViewer();
 	virtual ~CloudViewer();
 	void AddData(PointCloud *cloud);
+	void AddData(HeightMap *heightMap);
 	void UpDate();
 	void StopDraw();
 	unsigned char getKey();
@@ -62,6 +63,7 @@ private:
 	void setupCallback();
 
 	PointCloud *cloud;
+	HeightMap *heightMap;
 	bool ptr_points_locked;
 
 	void Redraw();
@@ -83,7 +85,9 @@ private:
 
 	GLfloat point_size;
 
-	void Visualize();
+	void VisualizeCloud();
+	void VisualizeHeightMap();
+	void VisualizeSobel();
 	void DrawRepere(vect3 pos);
 	void DrawTrapeze();
 
