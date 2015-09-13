@@ -282,32 +282,70 @@ void CloudViewer::DrawTrapeze() {
 	glEnd();
 }
 
-void CloudViewer::Visualize() {
-	glLineWidth(2);
-
+void CloudViewer::VisualizeCloud() {
+	glPointSize(2);
 	if (data_point && !ptr_points_locked) {
-		float temp_floor = 0;
 		ptr_points_locked = true;
-		glBegin(GL_LINES);
-		int skipped = 0;
-		for (int i = 0; i < cloud->GetNbPointsHM() + skipped; i++) {
-			POINT3D temp = cloud->PointHM(i);
-			if (temp.r + temp.b + temp.g == 0) {
-				skipped++;
-				continue;
-			}
-			if (cloud->PointHM(i).z > 0) {
-				glColor4f(0.0, 0.0, 0.0, 0.5);
-				glVertex3f(cloud->PointHM(i).x, -floor, -cloud->PointHM(i).z);
-				glColor4f(cloud->PointHM(i).r, cloud->PointHM(i).g, cloud->PointHM(i).b, 0.7);
-				glVertex3f(cloud->PointHM(i).x, -cloud->PointHM(i).y, -cloud->PointHM(i).z);
-				if(cloud->PointHM(i).y > temp_floor) {
-					temp_floor = cloud->PointHM(i).y;
-				}
+		glBegin(GL_POINTS);
+		for (int i = 0; i < cloud->getNumPoints(); i++) {
+			POINT3D temp = cloud->point(i);
+			// don't draw points behind us
+			if (temp.z > 0) {
+				glColor4f(temp.r, temp.g, temp.b, 0.7);
+				glVertex3f(temp.x, temp.y, temp.z);
 			}
 		}
 		glEnd();
-		floor = temp_floor;
+		ptr_points_locked = false;
+	}
+}
+
+void CloudViewer::VisualizeHeightMap() {
+	glLineWidth(2);
+	if (data_point && !ptr_points_locked) {
+		ptr_points_locked = true;
+		glBegin(GL_LINES);
+		for (int i = 0; i < heightMap->getNumPoints(); i++) {
+			if(heightMap->frequencies[i] == 0) {
+				continue;
+			}
+			POINT3D temp = heightMap->point(i);
+			// draw cells as short vertial lines (and don't draw points behind us)
+			if (temp.z > 0) {
+				glColor4f(0.0, 0.0, 0.0, 0.0);
+				glVertex3f(temp.x, temp.y-.2, temp.z);
+				glColor4f(temp.r, temp.g, temp.b, 0.7);
+				glVertex3f(temp.x, temp.y, temp.z);
+			}
+		}
+		glEnd();
+		ptr_points_locked = false;
+	}
+}
+
+void CloudViewer::VisualizeSobel() {
+	glPointSize(4);
+	if (data_point && !ptr_points_locked) {
+		ptr_points_locked = true;
+		glBegin(GL_POINTS);
+		float color;
+		for (int i = 0; i < heightMap->getNumPoints(); i++) {
+			if(heightMap->frequencies[i] == 0) {
+				continue;
+			}
+			if(heightMap->sobel[i]) {
+				color = 1;
+			} else {
+				color = 0;
+			}
+			POINT3D temp = heightMap->point(i);
+			// draw cells as short vertial lines (and don't draw points behind us)
+			if (temp.z > 0) {
+				glColor4f(color, color, color, 1.0);
+				glVertex3f(temp.x, 0, temp.z);
+			}
+		}
+		glEnd();
 		ptr_points_locked = false;
 	}
 }
@@ -325,6 +363,15 @@ void CloudViewer::AddData(PointCloud *cloud) {
 	}
 }
 
+void CloudViewer::AddData(Heightmap *heightMap) {
+	if (!ptr_points_locked) {
+		ptr_points_locked = true;
+		this->heightMap = heightMap;
+		data_point = true;
+		ptr_points_locked = false;
+	}
+}
+
 void CloudViewer::Redraw() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
@@ -337,9 +384,10 @@ void CloudViewer::Redraw() {
 
 	glClearColor(0.12f, 0.12f, 0.12f, 1.0f);
 
-	Visualize();
-	// DrawRepere(camera.getLookAt());
-	// DrawTrapeze();
+	// VisualizeCloud();
+	VisualizeHeightMap();
+	// VisualizeSobel();
+	
 	glPopMatrix();
 	glutSwapBuffers();
 }

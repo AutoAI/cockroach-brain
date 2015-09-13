@@ -5,18 +5,16 @@
 #include <iostream>
 #include <stdlib.h>
 
-#include "HeightMap.hpp"
+#include "heightMap.hpp"
 
 PointCloud::PointCloud(size_t width, size_t height) {
-	Width = width;
-	Height = height;
-	pc = new POINT3D[Width * Height];
-	hmpc = NULL;
+	width = width;
+	height = height;
+	pc = new POINT3D[width * height];
 }
 
 PointCloud::~PointCloud() {
 	delete pc;
-	delete hmpc;
 }
 
 void PointCloud::fill(const unsigned char* image, const float* depth_map, const sl::zed::StereoParameters *param) {
@@ -27,10 +25,10 @@ void PointCloud::fill(const unsigned char* image, const float* depth_map, const 
 	float fy = param->LeftCam.fy;
 
 	int index = 0;
-	for(int j = 0; j < Height; j++) {
-		for(int i = 0; i < Width; i++) {
-			pc[index].setColor(&image[j * (Width * 4) + i * 4]);
-			depth = depth_map[j * Width + i];
+	for(int j = 0; j < height; j++) {
+		for(int i = 0; i < width; i++) {
+			pc[index].setColor(&image[j * (width * 4) + i * 4]);
+			depth = depth_map[j * width + i];
 			depth /= 1000.0f; // convert to meters
 
 			pc[index].z = depth;
@@ -41,64 +39,45 @@ void PointCloud::fill(const unsigned char* image, const float* depth_map, const 
 	}
 }
 
-void PointCloud::genHeightMap(int width, int depth) {
+HeightMap* PointCloud::genHeightMap(int width, int depth) {
 	HeightMap* hm = new HeightMap(width, depth);
-	for(int i = 0; i < Width * Height; i++) {
+	for(int i = 0; i < width * height; i++) {
 		hm->insert(pc[i]);
 	}
-	if(hmpc == NULL) {
-		hmpc = new POINT3D[width * depth];
-	}
-
-	NbPointsHM = 0;
-	int x;
-	int z;
 
 	for(int i = 0; i < width * depth; i++) {
-		if(hm->red[i] + hm->grn[i] + hm->blu[i] == 0) {
+		if(hm->frequencies[i] == 0) {
 			continue;
 		}
 
-		x = i % width;
-		z = i / width;
-
-		hmpc[i].x = (x - width / 2) * VIEW_WIDTH / width;
-		hmpc[i].z = z * VIEW_DEPTH / depth;
-		hmpc[i].y = hm->heights[i] / HEIGHTMAP_SCALE;
+		// just trust me on these ones
+		hmpc[i].x = ((i % width) - width / 2) * VIEW_WIDTH / width;
+		hmpc[i].z = (i / width) * VIEW_DEPTH / depth;
+		hmpc[i].y = hm->heights[i];
 
 		hmpc[i].r = hm->red[i];
 		hmpc[i].g = hm->grn[i];
 		hmpc[i].b = hm->blu[i];
-
-		NbPointsHM++;
 	}
-	delete hm;
+	return hm;
 }
 
-POINT3D PointCloud::Point(size_t i, size_t j) {
-	return pc[i + Width * j];
+POINT3D PointCloud::point(size_t i, size_t j) {
+	return pc[i + width * j];
 }
 
-POINT3D PointCloud::Point(size_t i) {
+POINT3D PointCloud::point(size_t i) {
 	return pc[i];
 }
 
-POINT3D PointCloud::PointHM(size_t i) {
-	return hmpc[i];
+size_t PointCloud::getNumPoints() {
+	return width * height;
 }
 
-size_t PointCloud::GetNbPoints() {
-	return Width * Height;
+size_t PointCloud::width() {
+	return width;
 }
 
-size_t PointCloud::GetNbPointsHM() {
-	return NbPointsHM;
-}
-
-size_t PointCloud::GetWidth() {
-	return Width;
-}
-
-size_t PointCloud::GetHeight() {
-	return Height;
+size_t PointCloud::height() {
+	return height;
 }
