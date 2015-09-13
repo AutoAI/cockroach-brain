@@ -302,10 +302,13 @@ void CloudViewer::VisualizeCloud() {
 
 void CloudViewer::VisualizeHeightMap() {
 	glLineWidth(2);
+	printf("call\n");
 	if (data_point && !ptr_points_locked) {
+		printf("good so far\n");
 		ptr_points_locked = true;
 		glBegin(GL_LINES);
 		for (int i = 0; i < heightMap->getNumPoints(); i++) {
+			printf("boop!\n");
 			if(heightMap->frequencies[i] == 0) {
 				continue;
 			}
