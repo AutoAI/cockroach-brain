@@ -6,8 +6,8 @@
 #include <stdlib.h>
 
 PointCloud::PointCloud(size_t width, size_t height) {
-	width = width;
-	height = height;
+	this->width = width;
+	this->height = height;
 	pc = new POINT3D[width * height];
 }
 
