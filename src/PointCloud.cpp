@@ -42,21 +42,6 @@ HeightMap* PointCloud::genHeightMap(int width, int depth) {
 	for(int i = 0; i < width * height; i++) {
 		hm->insert(pc[i]);
 	}
-
-	for(int i = 0; i < width * depth; i++) {
-		if(hm->frequencies[i] == 0) {
-			continue;
-		}
-
-		// just trust me on these ones
-		hm->pc[i].x = ((i % width) - width / 2) * VIEW_WIDTH / width;
-		hm->pc[i].z = (i / width) * VIEW_DEPTH / depth;
-		hm->pc[i].y = hm->heights[i];
-
-		hm->pc[i].r = pc[i].r;
-		hm->pc[i].g = pc[i].g;
-		hm->pc[i].b = pc[i].b;
-	}
 	return hm;
 }
 
