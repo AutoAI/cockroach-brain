@@ -49,13 +49,13 @@ HeightMap* PointCloud::genHeightMap(int width, int depth) {
 		}
 
 		// just trust me on these ones
-		hmpc[i].x = ((i % width) - width / 2) * VIEW_WIDTH / width;
-		hmpc[i].z = (i / width) * VIEW_DEPTH / depth;
-		hmpc[i].y = hm->heights[i];
+		hm->pc[i].x = ((i % width) - width / 2) * VIEW_WIDTH / width;
+		hm->pc[i].z = (i / width) * VIEW_DEPTH / depth;
+		hm->pc[i].y = hm->heights[i];
 
-		hmpc[i].r = hm->red[i];
-		hmpc[i].g = hm->grn[i];
-		hmpc[i].b = hm->blu[i];
+		hm->pc[i].r = hm->red[i];
+		hm->pc[i].g = hm->grn[i];
+		hm->pc[i].b = hm->blu[i];
 	}
 	return hm;
 }
