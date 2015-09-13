@@ -363,7 +363,7 @@ void CloudViewer::AddData(PointCloud *cloud) {
 	}
 }
 
-void CloudViewer::AddData(Heightmap *heightMap) {
+void CloudViewer::AddData(HeightMap *heightMap) {
 	if (!ptr_points_locked) {
 		ptr_points_locked = true;
 		this->heightMap = heightMap;
