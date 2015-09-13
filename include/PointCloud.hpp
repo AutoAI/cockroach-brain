@@ -13,7 +13,7 @@ public:
 	~PointCloud();
 
 	void fill(const unsigned char* image, const float* depth, const sl::zed::StereoParameters *param);
-	HeightMap* genHeightMap(int width, int depth);
+	HeightMap* fillHeightMap(HeightMap *hm);
 
 	POINT3D point(size_t i, size_t j);
 	POINT3D point(size_t i);

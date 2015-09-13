@@ -66,7 +66,7 @@ int main() {
 	int width = camera->getImageSize().width;
 	int height = camera->getImageSize().height;
 	PointCloud *cloud = new PointCloud(width, height);
-	HeightMap *heightMap = NULL;
+	HeightMap *heightMap = new HeightMap(320, 640);
 	CloudViewer *viewer = new CloudViewer();
 	int key = ' ';
 	Mat depth, imLeft;
@@ -78,8 +78,7 @@ int main() {
 		depth = camera->retrieveMeasure(MEASURE::DEPTH);
 		imLeft = camera->retrieveImage(SIDE::LEFT);
 		cloud->fill(imLeft.data, (float*) depth.data, camera->getParameters());
-		delete heightMap;
-		heightMap = cloud->genHeightMap(320, 640);
+		cloud->fillHeightMap(heightMap);
 		// heightMap->calcSobel(5);
 		viewer->AddData(heightMap);
 		printf("ZOP!\n");

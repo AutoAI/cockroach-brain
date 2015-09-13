@@ -6,14 +6,24 @@
 #include <math.h>
 
 HeightMap::HeightMap(int width, int depth) {
-	this -> width = width;
-	this -> depth = depth;
+	this->width = width;
+	this->depth = depth;
 
 	frequencies = new char[width * depth];
 	sobel = new bool[width * depth];
 	pc = new POINT3D[width * depth];
 
 	// preprocess pc
+	clear();
+}
+
+HeightMap::~HeightMap() {
+	delete frequencies;
+	delete sobel;
+	delete pc;
+}
+
+void HeightMap::clear() {
 	for(int i = 0; i < width * depth; i++) {
 		// clear color values
 		pc[i].r = 0;
@@ -24,12 +34,6 @@ HeightMap::HeightMap(int width, int depth) {
 		// clear counter for number of points affecting this cell
 		frequencies[i] = 0;
 	}
-}
-
-HeightMap::~HeightMap() {
-	delete frequencies;
-	delete sobel;
-	delete pc;
 }
 
 void HeightMap::insert(POINT3D p) {

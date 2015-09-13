@@ -14,6 +14,7 @@ class HeightMap {
 public:
 	HeightMap(int width, int depth);
 	~HeightMap();
+	void clear();
 	void insert(POINT3D p);
 	POINT3D point(size_t i);
 	size_t getNumPoints();
