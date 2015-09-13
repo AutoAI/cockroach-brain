@@ -91,11 +91,11 @@ int main() {
 		// viewer->AddData(heightMap);
 
 		// Update the value of key so that we can quit when the user strikes 'q'
-		key = viewer->getKey();
+		// key = viewer->getKey();
 	}
 
 	delete camera;
 	delete cloud;
-	delete viewer;
+	// delete viewer;
 	return 0;
 }
