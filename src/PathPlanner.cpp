@@ -72,6 +72,5 @@ float PathPlanner::percentageBad(size_t x1, size_t z1, size_t x2, size_t z2) {
 			numBad++;
 		}
 	}
-	printf("%f\n", numBad / float(z2 - z1 + 1));
 	return numBad / float(z2 - z1 + 1);
 }
