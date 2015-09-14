@@ -47,9 +47,6 @@ void HeightMap::insert(POINT3D p) {
 	if(x_index < 0 || x_index >= width) {
 		return;
 	}
-	if(p.x < 0) {
-		printf("p.x = %f, x_index = %d\n", p.x, x_index);
-	}
 	int i = z_index * width + x_index;
 
 	// update height - height for a cell is always max point height

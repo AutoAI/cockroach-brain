@@ -82,6 +82,11 @@ int main() {
 
 		// heightMap->calcSobel(5);
 		viewer->AddData(heightMap);
+		for(int i = 0; i < 320 * 640; i++) {
+			if(heightMap->pc[i].x < 0) {
+				printf("p.x = %f, x_index = %d\n", p.x, x_index);
+			}
+		}
 
 		// Update the value of key so that we can quit when the user strikes 'q'
 		key = viewer->getKey();
