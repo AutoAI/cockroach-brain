@@ -32,7 +32,7 @@ float controlVal(std::vector<double> *inverseRadiiPtr, std::vector<double> *cont
 
 int main(int argc, char** argv) {
 	Camera* camera = new Camera(HD720, 15.0);
-	ERRCODE code = camera->init(MODE::PERFORMANCE, 0);
+	ERRCODE code = camera->init(MODE::QUALITY, 0);
 
 	if (code != SUCCESS) {
 		cout << errcode2str(code) << endl;
