@@ -328,20 +328,22 @@ void CloudViewer::VisualizeSobel() {
 	if (data_point && !ptr_points_locked) {
 		ptr_points_locked = true;
 		glBegin(GL_POINTS);
-		float color;
+		float r, g;
 		for (int i = 0; i < heightMap->getNumPoints(); i++) {
 			if(heightMap->frequencies[i] == 0) {
-				continue;
-			}
-			if(heightMap->sobel[i]) {
-				color = 1;
+				r = .4;
+				g = .4;
+			} else if(heightMap->sobel[i]) {
+				r = 0;
+				g = .8;
 			} else {
-				color = 0;
+				r = .8;
+				g = 0;
 			}
 			POINT3D temp = heightMap->point(i);
 			// draw cells as short vertial lines (and don't draw points behind us)
 			if (temp.z > 0) {
-				glColor4f(color, color, color, 1.0);
+				glColor4f(r, g, .2, 1.0);
 				glVertex3f(temp.x, 0, -temp.z);
 			}
 		}
