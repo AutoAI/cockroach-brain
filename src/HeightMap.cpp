@@ -90,7 +90,7 @@ void HeightMap::calcSobel(float threshold) {
 		}
 
 		printf("%d\n", i);
-		
+
 		a = pc[i - width - 1].y;
 		b = pc[i - width].y;
 		c = pc[i - width + 1].y;
@@ -100,9 +100,13 @@ void HeightMap::calcSobel(float threshold) {
 		h = pc[i + width].y;
 		i = pc[i + width + 1].y;
 
+		printf("%d\n", i);
+
 		// use the sobel-feldman operator (3-10-3)
 		tempX = (g * 3 + h * 10 + i * 3) - (a * 3 + b * 10 + c * 3);
 		tempZ = (c * 3 + f * 10 + i * 3) - (a * 3 + d * 10 + g * 3);
 		sobel[i] = sqrt(tempX * tempX + tempZ * tempZ) < threshold;
+
+		printf("%d\n\n", i);
 	}
 }
