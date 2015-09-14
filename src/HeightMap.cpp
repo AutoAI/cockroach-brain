@@ -82,13 +82,15 @@ void HeightMap::calcSobel(float threshold) {
 	float tempX, tempZ;
 	printf("calculating sobel...\n");
 	for(int i = 0; i < width * depth; i++) {
-		printf("%d\n", i);
 		x = i % width;
 		z = i / width;
 		if(x == 0 || x == width - 1 || z == 0 || z == depth - 1) {
 			sobel[i] = false;
 			continue;
 		}
+
+		printf("%d\n", i);
+		
 		a = pc[i - width - 1].y;
 		b = pc[i - width].y;
 		c = pc[i - width + 1].y;
