@@ -43,10 +43,10 @@ void HeightMap::insert(POINT3D p) {
 	if(z_index < 0 || z_index >= depth) {
 		return;
 	}
-	int x_index = (int)(p.x * width / VIEW_WIDTH + width / 2);
 	if(p.x < 0) {
-		printf("x_index = %d\n", x_index);
+		return;
 	}
+	int x_index = (int)(p.x * width / VIEW_WIDTH + width / 2);
 	if(x_index < 0 || x_index >= width) {
 		return;
 	}
