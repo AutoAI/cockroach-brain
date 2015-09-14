@@ -47,10 +47,10 @@ void PathPlanner::calcEdges() {
 		// we did bad
 		printf("we did bad\n");
 	}
-	edges[0] = ((x1 - hm->width / 2) * VIEW_WIDTH) / hm->width;;
-	edges[2] = ((x2 - hm->width / 2) * VIEW_WIDTH) / hm->width;;
-	edges[4] = ((x3 - hm->width / 2) * VIEW_WIDTH) / hm->width;;
-	edges[6] = ((x4 - hm->width / 2) * VIEW_WIDTH) / hm->width;;
+	edges[0] = ((float(x1) - hm->width / 2) * VIEW_WIDTH) / hm->width;
+	edges[2] = ((float(x2) - hm->width / 2) * VIEW_WIDTH) / hm->width;
+	edges[4] = ((float(x3) - hm->width / 2) * VIEW_WIDTH) / hm->width;
+	edges[6] = ((float(x4) - hm->width / 2) * VIEW_WIDTH) / hm->width;
 }
 
 float* PathPlanner::getEdges() {
