@@ -359,7 +359,7 @@ void CloudViewer::VisualizePlanner() {
 
 		// draw edges
 		glBegin(GL_LINES);
-		glLineWidth(10);
+		glLineWidth(100);
 		float *edges = planner->getEdges();
 		glVertex3f(edges[0], 0, -edges[1]);
 		glVertex3f(edges[2], 0, -edges[3]);
@@ -369,7 +369,7 @@ void CloudViewer::VisualizePlanner() {
 
 		// draw target
 		glBegin(GL_POINTS);
-		glPointSize(10);
+		glPointSize(100);
 		float *target = planner->getTarget();
 		glVertex3f(target[0], 0, -target[1]);
 		glEnd();
