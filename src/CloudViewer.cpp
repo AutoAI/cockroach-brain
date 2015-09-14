@@ -354,7 +354,7 @@ void CloudViewer::VisualizeSobel() {
 
 void CloudViewer::VisualizePlanner() {
 	glPointSize(8);
-	glLineWidth(2);
+	glLineWidth(5);
 	glColor4f(.2, .2, .8, 1.0);
 	if (!ptr_points_locked) {
 		ptr_points_locked = true;
