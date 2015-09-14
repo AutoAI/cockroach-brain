@@ -2,9 +2,9 @@
 
 #pragma once
 
-#define LOOKAHEAD_MIN 1.0f // meters
-#define LOOKAHEAD_MAX 3.0f
-#define EDGE_THRESHOLD .5f // [0, 1]
+#define LOOKAHEAD_MIN 1.5f // meters
+#define LOOKAHEAD_MAX 3.5f
+#define EDGE_THRESHOLD .4f // [0, 1]
 
 #include "HeightMap.hpp"
 
