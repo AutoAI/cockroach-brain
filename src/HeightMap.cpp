@@ -66,9 +66,9 @@ POINT3D HeightMap::point(size_t i) {
 	printf("i = %d\n", i);
 	printf("i mod width = %d\n", i % width);
 	printf("i mod width - width / 2 = %d\n", (i % width) - width / 2);
-	printf("i mod width - width / 2 * VIEW_WIDTH = %f\n", ((i % width) - width / 2) * VIEW_WIDTH);
-	printf("i mod width - width / 2 * VIEW_WIDTH / width = %f\n", ((i % width) - width / 2) * VIEW_WIDTH / width);
-	printf("pc[i].x = %f\n", pc[i].x);
+	printf("i mod width - width / 2 * VIEW_WIDTH = %d\n", ((i % width) - width / 2) * VIEW_WIDTH);
+	printf("i mod width - width / 2 * VIEW_WIDTH / width = %d\n", ((i % width) - width / 2) * VIEW_WIDTH / width);
+	printf("pc[i].x = %d\n", pc[i].x);
 	pc[i].z = (i / width) * VIEW_DEPTH / depth;
 	return pc[i];
 }
