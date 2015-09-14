@@ -306,9 +306,9 @@ void CloudViewer::VisualizeHeightMap() {
 		ptr_points_locked = true;
 		glBegin(GL_LINES);
 		for (int i = 0; i < heightMap->getNumPoints(); i++) {
-			if(heightMap->frequencies[i] == 0) {
-				continue;
-			}
+			// if(heightMap->frequencies[i] == 0) {
+			// 	continue;
+			// }
 			POINT3D temp = heightMap->point(i);
 			if (temp.x < 0) {
 				printf("wtf is going on\n");
