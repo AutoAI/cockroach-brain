@@ -2,6 +2,7 @@
 // Author: Travis Vanderstad
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <chrono>
 #include <vector>
@@ -29,7 +30,7 @@ float controlVal(std::vector<double> *inverseRadiiPtr, std::vector<double> *cont
 	}
 }
 
-int main() {
+int main(int argc, char** argv) {
 	Camera* camera = new Camera(HD720, 15.0);
 	ERRCODE code = camera->init(MODE::PERFORMANCE, 0);
 
@@ -80,7 +81,7 @@ int main() {
 		cloud->fill(imLeft.data, (float*) depth.data, camera->getParameters());
 		cloud->fillHeightMap(heightMap);
 
-		heightMap->calcSobel(1);
+		heightMap->calcSobel(atof(argv[1]));
 		viewer->AddData(heightMap);
 
 		// Update the value of key so that we can quit when the user strikes 'q'
