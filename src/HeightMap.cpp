@@ -63,7 +63,7 @@ void HeightMap::insert(POINT3D p) {
 
 POINT3D HeightMap::point(size_t i) {
 	pc[i].x = ((i % width) - width / 2) * VIEW_WIDTH / width;
-	printf("x = %f\n", pc[i].x);
+	printf("i = %d\tx = %f\n", i, pc[i].x);
 	pc[i].z = (i / width) * VIEW_DEPTH / depth;
 	return pc[i];
 }
