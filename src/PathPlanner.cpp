@@ -54,7 +54,6 @@ void PathPlanner::calcEdges() {
 }
 
 float* PathPlanner::getEdges() {
-	printf("edges = [(%f, %f), (%f, %f), (%f, %f), (%f, %f)]\n", edges[0], edges[1], edges[2], edges[3], edges[4], edges[5], edges[6], edges[7]);
 	return edges;
 }
 
@@ -71,5 +70,6 @@ float PathPlanner::percentageBad(size_t x1, size_t z1, size_t x2, size_t z2) {
 			numBad++;
 		}
 	}
+	printf("%f\n", numBad / float(z2 - z1 + 1));
 	return numBad / float(z2 - z1 + 1);
 }
