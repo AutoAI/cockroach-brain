@@ -58,7 +58,7 @@ float* PathPlanner::getEdges() {
 }
 
 float* PathPlanner::getTarget() {
-	target[0] = (edges[0] + edges[2]) / 2;
+	target[0] = (edges[0] + edges[4]) / 2;
 	target[1] = (LOOKAHEAD_MIN + LOOKAHEAD_MAX) / 2;
 	return target;
 }
