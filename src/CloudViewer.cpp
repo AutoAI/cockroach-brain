@@ -327,7 +327,7 @@ void CloudViewer::VisualizeSobel() {
 	if (!ptr_points_locked) {
 		ptr_points_locked = true;
 		glBegin(GL_POINTS);
-		glPointSize(4);
+		glPointSize(2);
 		float r, g;
 		for (int i = 0; i < heightMap->getNumPoints(); i++) {
 			if(heightMap->frequencies[i] == 0) {
