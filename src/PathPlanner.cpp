@@ -31,6 +31,7 @@ void PathPlanner::calcEdges() {
 	x1 = x2 = x3 = x4 = hm->width / 2;
 	z1 = z3 = LOOKAHEAD_MIN * hm->depth / VIEW_DEPTH;
 	z2 = z4 = LOOKAHEAD_MAX * hm->depth / VIEW_DEPTH;
+	printf("LEFT -------------------------\n");
 	while(percentageBad(x1, z1, x2, z2) < EDGE_THRESHOLD && x1 > -1) {
 		printf("x1 = %d\tpb = %f\n", x1, percentageBad(x1, z1, x2, z2));
 		x1--;
@@ -40,6 +41,7 @@ void PathPlanner::calcEdges() {
 		// we did bad
 		printf("we did bad\n");
 	}
+	printf("RIGHT -------------------------\n");
 	while(percentageBad(x3, z3, x4, z4) < EDGE_THRESHOLD && x3 < hm->width) {
 		printf("x3 = %d\tpb = %f\n", x3, percentageBad(x3, z3, x4, z4));
 		x3++;
