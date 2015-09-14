@@ -78,7 +78,13 @@ size_t HeightMap::getNumPoints() {
 // note: good candidate for CUDA acceleration
 void HeightMap::calcSobel(float threshold) {
 	int x, z;
-	float a, b, c, d, f, g, h, i;
+	float a, b, c, d, f, g, h, j;
+	/*
+	sobel on:
+	a b c
+	d e f
+	g h j
+	*/
 	float tempX, tempZ;
 	printf("calculating sobel...\n");
 	for(int i = 0; i < width * depth; i++) {
@@ -89,8 +95,6 @@ void HeightMap::calcSobel(float threshold) {
 			continue;
 		}
 
-		printf("%d\n", i);
-
 		a = pc[i - width - 1].y;
 		b = pc[i - width].y;
 		c = pc[i - width + 1].y;
@@ -98,15 +102,11 @@ void HeightMap::calcSobel(float threshold) {
 		f = pc[i + 1].y;
 		g = pc[i + width - 1].y;
 		h = pc[i + width].y;
-		i = pc[i + width + 1].y;
-
-		printf("%d\n", i);
+		j = pc[i + width + 1].y;
 
 		// use the sobel-feldman operator (3-10-3)
-		tempX = (g * 3 + h * 10 + i * 3) - (a * 3 + b * 10 + c * 3);
-		tempZ = (c * 3 + f * 10 + i * 3) - (a * 3 + d * 10 + g * 3);
+		tempX = (g * 3 + h * 10 + j * 3) - (a * 3 + b * 10 + c * 3);
+		tempZ = (c * 3 + f * 10 + j * 3) - (a * 3 + d * 10 + g * 3);
 		sobel[i] = sqrt(tempX * tempX + tempZ * tempZ) < threshold;
-
-		printf("%d\n\n", i);
 	}
 }
