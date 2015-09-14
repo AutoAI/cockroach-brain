@@ -310,6 +310,9 @@ void CloudViewer::VisualizeHeightMap() {
 				continue;
 			}
 			POINT3D temp = heightMap->point(i);
+			if (temp.x < 0) {
+				printf("wtf is going on\n");
+			}
 			// draw cells as short vertial lines (and don't draw points behind us)
 			if (temp.z > 0) {
 				glColor4f(0.0, 0.0, 0.0, 0.0);
