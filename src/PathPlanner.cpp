@@ -32,7 +32,7 @@ void PathPlanner::calcEdges() {
 	z1 = z3 = LOOKAHEAD_MIN * hm->depth / VIEW_DEPTH;
 	z2 = z4 = LOOKAHEAD_MAX * hm->depth / VIEW_DEPTH;
 	printf("LEFT -------------------------\n");
-	printf("%d, %d\n", percentageBad(x1, z1, x2, z2) < EDGE_THRESHOLD, x1 > -1);
+	printf("%d\n", x1);
 	while(percentageBad(x1, z1, x2, z2) < EDGE_THRESHOLD && x1 > -1) {
 		printf("x1 = %d\tpb = %f\n", x1, percentageBad(x1, z1, x2, z2));
 		x1--;
