@@ -80,7 +80,7 @@ int main() {
 		cloud->fill(imLeft.data, (float*) depth.data, camera->getParameters());
 		cloud->fillHeightMap(heightMap);
 
-		heightMap->calcSobel(2);
+		heightMap->calcSobel(.5);
 		viewer->AddData(heightMap);
 
 		// Update the value of key so that we can quit when the user strikes 'q'
