@@ -18,6 +18,7 @@ PathPlanner::~PathPlanner() {
 }
 
 void PathPlanner::calcEdges() {
+	printf("calcing edges\n");
 	/*
 	edges arranged like so:
 	(x2, z2)		(x4, z4)
