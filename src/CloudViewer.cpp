@@ -385,8 +385,8 @@ void CloudViewer::Redraw() {
 	glClearColor(0.12f, 0.12f, 0.12f, 1.0f);
 
 	// VisualizeCloud();
-	VisualizeHeightMap();
-	// VisualizeSobel();
+	// VisualizeHeightMap();
+	VisualizeSobel();
 	
 	glPopMatrix();
 	glutSwapBuffers();
