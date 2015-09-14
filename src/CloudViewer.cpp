@@ -353,14 +353,13 @@ void CloudViewer::VisualizeSobel() {
 }
 
 void CloudViewer::VisualizePlanner() {
-	glPointSize(10);
-	glLineWidth(10);
 	glColor4f(.2, .2, .8, 1.0);
 	if (!ptr_points_locked) {
 		ptr_points_locked = true;
 
 		// draw edges
 		glBegin(GL_LINES);
+		glLineWidth(10);
 		float *edges = planner->getEdges();
 		printf("edges = [(%f, %f), (%f, %f), (%f, %f), (%f, %f)]\n", edges[0], edges[1], edges[2], edges[3], edges[4], edges[5], edges[6], edges[7]);
 		glVertex3f(edges[0], 0, -edges[1]);
@@ -371,6 +370,7 @@ void CloudViewer::VisualizePlanner() {
 
 		// draw target
 		glBegin(GL_POINTS);
+		glPointSize(2);
 		float *target = planner->getTarget();
 		glVertex3f(target[0], 0, -target[1]);
 		glEnd();
