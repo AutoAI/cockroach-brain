@@ -33,6 +33,9 @@ void PathPlanner::calcEdges() {
 	z2 = z4 = LOOKAHEAD_MAX * hm->depth / VIEW_DEPTH;
 	printf("LEFT -------------------------\n");
 	printf("%d\n", x1);
+	if(x1 > -1) {
+		printf("YABADABA\n");
+	}
 	while(percentageBad(x1, z1, x2, z2) < EDGE_THRESHOLD && x1 > -1) {
 		printf("x1 = %d\tpb = %f\n", x1, percentageBad(x1, z1, x2, z2));
 		x1--;
