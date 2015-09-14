@@ -379,7 +379,7 @@ void CloudViewer::VisualizePlanner() {
 }
 
 void CloudViewer::StopDraw() {
-	data_point = false;
+	hasCloud = hasPlanner = hasHeightMap = false;
 }
 
 void CloudViewer::AddData(PointCloud *cloud) {
