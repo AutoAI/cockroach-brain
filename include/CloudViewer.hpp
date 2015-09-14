@@ -70,6 +70,7 @@ private:
 
 	PointCloud *cloud;
 	HeightMap *heightMap;
+	PathPlanner *planner;
 	bool ptr_points_locked;
 
 	void Redraw();
