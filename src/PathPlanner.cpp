@@ -54,7 +54,7 @@ void PathPlanner::calcEdges() {
 }
 
 float* PathPlanner::getEdges() {
-	printf("edges = [(%f, %f), (%f, %f), (%f, %f), (%f, %f)]\n", x1, z1, x2, z2, x3, z3, x4, z4);
+	printf("edges = [(%f, %f), (%f, %f), (%f, %f), (%f, %f)]\n", edges[0], edges[1], edges[2], edges[3], edges[4], edges[5], edges[6], edges[7]);
 	return edges;
 }
 
