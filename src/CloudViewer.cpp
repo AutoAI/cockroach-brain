@@ -368,7 +368,7 @@ void CloudViewer::VisualizePlanner() {
 
 		// draw target as tiny cube
 		float *target = planner->getTarget();
-		float d = .01;
+		float d = .05;
 		glVertex3f(target[0]-d, -d, -target[1]-d);
 		glVertex3f(target[0]-d, -d, -target[1]+d);
 		glVertex3f(target[0]-d, -d, -target[1]+d);
