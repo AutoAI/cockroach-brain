@@ -23,4 +23,4 @@ private:
 	float* target;
 
 	float percentageBad(size_t x1, size_t z1, size_t x2, size_t z2);
-}
+};
