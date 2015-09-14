@@ -285,8 +285,8 @@ void CloudViewer::DrawTrapeze() {
 void CloudViewer::VisualizeCloud() {
 	if (!ptr_points_locked) {
 		ptr_points_locked = true;
-		glBegin(GL_POINTS);
 		glPointSize(2);
+		glBegin(GL_POINTS);
 		for (int i = 0; i < cloud->getNumPoints(); i++) {
 			POINT3D temp = cloud->point(i);
 			// don't draw points behind us
@@ -303,8 +303,8 @@ void CloudViewer::VisualizeCloud() {
 void CloudViewer::VisualizeHeightMap() {
 	if (!ptr_points_locked) {
 		ptr_points_locked = true;
-		glBegin(GL_LINES);
 		glLineWidth(2);
+		glBegin(GL_LINES);
 		for (int i = 0; i < heightMap->getNumPoints(); i++) {
 			if(heightMap->frequencies[i] == 0) {
 				continue;
@@ -326,8 +326,8 @@ void CloudViewer::VisualizeHeightMap() {
 void CloudViewer::VisualizeSobel() {
 	if (!ptr_points_locked) {
 		ptr_points_locked = true;
-		glBegin(GL_POINTS);
 		glPointSize(3);
+		glBegin(GL_POINTS);
 		float r, g;
 		for (int i = 0; i < heightMap->getNumPoints(); i++) {
 			if(heightMap->frequencies[i] == 0) {
@@ -368,7 +368,7 @@ void CloudViewer::VisualizePlanner() {
 
 		// draw target as tiny cube
 		float *target = planner->getTarget();
-		float d = .1;
+		float d = .01;
 		glVertex3f(target[0]-d, -d, -target[1]-d);
 		glVertex3f(target[0]-d, -d, -target[1]+d);
 		glVertex3f(target[0]-d, -d, -target[1]+d);
