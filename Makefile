@@ -25,6 +25,14 @@ vpath %.cu $(SRC_DIR)
 vpath %.hpp $(INCLUDE_DIR)
 vpath %.o $(BUILD_DIR)
 
+# If the first argument is "run"...
+ifeq (run,$(firstword $(MAKECMDGOALS)))
+  # use the rest as arguments for "run"
+  RUN_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+  # ...and turn them into do-nothing targets
+  $(eval $(RUN_ARGS):;@:)
+endif
+
 $(BIN_DIR)/$(PROJECT_NAME): $(OBJECTS)
 	@echo "Linking..."
 	@$(CC) $(BUILD_DIR)/*.o -o $(BIN_DIR)/$(PROJECT_NAME) $(LFLAGS)
@@ -50,4 +58,4 @@ clean:
 	@rm $(BIN_DIR)/*
 
 run:
-	@./$(BIN_DIR)/$(PROJECT_NAME)
+	@./$(BIN_DIR)/$(PROJECT_NAME) $(RUN_ARGS)
