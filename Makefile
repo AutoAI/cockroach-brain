@@ -18,7 +18,7 @@ CCFLAGS = -c -g -std=c++11 -I$(CUDAPATH)/include -I$(INCLUDE_DIR)
 NVCCFLAGS = -c -g -std=c++11 -I$(CUDAPATH)/include -I$(INCLUDE_DIR)
 LFLAGS = -lGL -lGLU -lglut -L$(CUDAPATH)/lib -lcuda -lcudart -lm -pthread -L$(ZEDPATH)/lib -lsl_zed -lsl_depthcore -lsl_calibration -lcudpp -lcudpp_hash -rdynamic -lnppc -lnpps -lnppi -lSM -lICE -lX11 -lXext -lXmu -lXi
 
-OBJECTS = main.o CloudViewer.o PointCloud.o HeightMap.o
+OBJECTS = main.o CloudViewer.o PointCloud.o HeightMap.o PathPlanner.o
 
 vpath %.cpp $(SRC_DIR)
 vpath %.cu $(SRC_DIR)
@@ -52,6 +52,10 @@ PointCloud.o: PointCloud.cpp PointCloud.hpp utils.hpp HeightMap.hpp
 HeightMap.o: HeightMap.cpp HeightMap.hpp utils.hpp
 	@echo "Compiling HeightMap..."
 	@$(CC) $(CCFLAGS) $(SRC_DIR)/HeightMap.cpp -o $(BUILD_DIR)/HeightMap.o
+
+PathPlanner.o: PathPlanner.cpp HeightMap.hpp
+	@echo "Compiling PathPlanner..."
+	@$(CC) $(CCFLAGS) $(SRC_DIR)/PathPlanner.cpp -o $(BUILD_DIR)/PathPlanner.o
 
 clean:
 	@rm $(BUILD_DIR)/*.o

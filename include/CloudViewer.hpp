@@ -4,6 +4,7 @@
 
 #include "PointCloud.hpp"
 #include "HeightMap.hpp"
+#include "PathPlanner.hpp"
 #include "utils.hpp"
 
 #include <math.h>
@@ -50,6 +51,8 @@ public:
 	virtual ~CloudViewer();
 	void AddData(PointCloud *cloud);
 	void AddData(HeightMap *heightMap);
+	void AddPlanner(PathPlanner *planner);
+
 	void UpDate();
 	void StopDraw();
 	unsigned char getKey();
@@ -91,10 +94,13 @@ private:
 	void VisualizeCloud();
 	void VisualizeHeightMap();
 	void VisualizeSobel();
+	void VisualizePlanner();
 	void DrawRepere(vect3 pos);
 	void DrawTrapeze();
 
-	bool data_point;
+	bool hasCloud;
+	bool hasHeightMap;
+	bool hasPlanner;
 
 	unsigned char keyPressed;
 	bool invertMotion;

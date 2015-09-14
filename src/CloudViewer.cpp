@@ -135,7 +135,7 @@ void TrackBallCamera::setAngleX() {
 CloudViewer::CloudViewer() {
 	camera = TrackBallCamera(vect3(0.0f, .1f, .5f), vect3(0.0f, 0.0f, 0.0f));
 	point_size = 5;
-	data_point = false;
+	hasCloud = hasHeightMap = hasPlanner = false;
 	ptr_points_locked = false;
 	Translate = false;
 	Rotate = false;
@@ -283,10 +283,10 @@ void CloudViewer::DrawTrapeze() {
 }
 
 void CloudViewer::VisualizeCloud() {
-	glPointSize(2);
-	if (data_point && !ptr_points_locked) {
+	if (!ptr_points_locked) {
 		ptr_points_locked = true;
 		glBegin(GL_POINTS);
+		glPointSize(2);
 		for (int i = 0; i < cloud->getNumPoints(); i++) {
 			POINT3D temp = cloud->point(i);
 			// don't draw points behind us
@@ -301,10 +301,10 @@ void CloudViewer::VisualizeCloud() {
 }
 
 void CloudViewer::VisualizeHeightMap() {
-	glLineWidth(2);
-	if (data_point && !ptr_points_locked) {
+	if (!ptr_points_locked) {
 		ptr_points_locked = true;
 		glBegin(GL_LINES);
+		glLineWidth(2);
 		for (int i = 0; i < heightMap->getNumPoints(); i++) {
 			if(heightMap->frequencies[i] == 0) {
 				continue;
@@ -324,10 +324,10 @@ void CloudViewer::VisualizeHeightMap() {
 }
 
 void CloudViewer::VisualizeSobel() {
-	glPointSize(4);
-	if (data_point && !ptr_points_locked) {
+	if (!ptr_points_locked) {
 		ptr_points_locked = true;
 		glBegin(GL_POINTS);
+		glPointSize(4);
 		float r, g;
 		for (int i = 0; i < heightMap->getNumPoints(); i++) {
 			if(heightMap->frequencies[i] == 0) {
@@ -352,6 +352,32 @@ void CloudViewer::VisualizeSobel() {
 	}
 }
 
+void CloudViewer::VisualizePlanner() {
+	glPointSize(8);
+	glLineWidth(2);
+	glColor4f(.2, .2, .8, 1.0);
+	if (!ptr_points_locked) {
+		ptr_points_locked = true;
+
+		// draw edges
+		glBegin(GL_LINES);
+		float *edges = planner->getEdges();
+		glVertex3f(edges[0], 0, -edges[1]);
+		glVertex3f(edges[2], 0, -edges[3]);
+		glVertex3f(edges[4], 0, -edges[5]);
+		glVertex3f(edges[5], 0, -edges[7]);
+		glEnd();
+
+		// draw target
+		glBegin(GL_POINTS);
+		float *target = planner->getTarget();
+		glVertex3f(target[0], 0, -target[1]);
+		glEnd();
+
+		ptr_points_locked = false;
+	}
+}
+
 void CloudViewer::StopDraw() {
 	data_point = false;
 }
@@ -360,7 +386,7 @@ void CloudViewer::AddData(PointCloud *cloud) {
 	if (!ptr_points_locked) {
 		ptr_points_locked = true;
 		this->cloud = cloud;
-		data_point = true;
+		hasCloud = true;
 		ptr_points_locked = false;
 	}
 }
@@ -369,7 +395,16 @@ void CloudViewer::AddData(HeightMap *heightMap) {
 	if (!ptr_points_locked) {
 		ptr_points_locked = true;
 		this->heightMap = heightMap;
-		data_point = true;
+		hasHeightMap = true;
+		ptr_points_locked = false;
+	}
+}
+
+void CloudViewer::AddPlanner(PathPlanner *planner) {
+	if (!ptr_points_locked) {
+		ptr_points_locked = true;
+		this->planner = planner;
+		hasPlanner = true;
 		ptr_points_locked = false;
 	}
 }
@@ -386,9 +421,16 @@ void CloudViewer::Redraw() {
 
 	glClearColor(0.12f, 0.12f, 0.12f, 1.0f);
 
-	// VisualizeCloud();
-	// VisualizeHeightMap();
-	VisualizeSobel();
+	if(hasCloud) {
+		VisualizeCloud();
+	}
+	if(hasHeightMap) {
+		// VisualizeHeightMap();
+		VisualizeSobel();
+	}
+	if(hasPlanner) {
+		VisualizePlanner();
+	}
 	
 	glPopMatrix();
 	glutSwapBuffers();

@@ -14,6 +14,7 @@
 #include "PointCloud.hpp"
 #include "CloudViewer.hpp"
 #include "HeightMap.hpp"
+#include "PathPlanner.hpp"
 
 using namespace sl::zed;
 using namespace std;
@@ -28,6 +29,10 @@ float controlVal(std::vector<double> *inverseRadiiPtr, std::vector<double> *cont
 			return factor * inverseRadii[i+1] + (1 - factor) * inverseRadii[i];
 		}
 	}
+}
+
+float steerToward(float *target) {
+
 }
 
 int main(int argc, char** argv) {
@@ -67,8 +72,9 @@ int main(int argc, char** argv) {
 	int width = camera->getImageSize().width;
 	int height = camera->getImageSize().height;
 	PointCloud *cloud = new PointCloud(width, height);
-	HeightMap *heightMap = new HeightMap(320, 640);
+	HeightMap *heightMap = new HeightMap(240, 480);
 	CloudViewer *viewer = new CloudViewer();
+	PathPlanner *planner = new PathPlanner(heightMap);
 	int key = ' ';
 	Mat depth, imLeft;
 
@@ -82,11 +88,14 @@ int main(int argc, char** argv) {
 		cloud->fillHeightMap(heightMap);
 
 		heightMap->calcSobel(atof(argv[1]));
+		planner->calcEdges();
+		steerToward(planner->getTarget());
+
 		viewer->AddData(heightMap);
+		viewer->AddPlanner(planner);
 
 		// Update the value of key so that we can quit when the user strikes 'q'
 		key = viewer->getKey();
-		// key = 'q';
 	}
 
 	printf("quitting\n");
