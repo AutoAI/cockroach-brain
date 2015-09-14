@@ -356,25 +356,45 @@ void CloudViewer::VisualizePlanner() {
 	glColor4f(.2, .2, .8, 1.0);
 	if (!ptr_points_locked) {
 		ptr_points_locked = true;
+		glLineWidth(10);
+		glBegin(GL_LINES);
 
 		// draw edges
-		glBegin(GL_LINES);
-		glLineWidth(10);
 		float *edges = planner->getEdges();
-		printf("edges = [(%f, %f), (%f, %f), (%f, %f), (%f, %f)]\n", edges[0], edges[1], edges[2], edges[3], edges[4], edges[5], edges[6], edges[7]);
 		glVertex3f(edges[0], 0, -edges[1]);
 		glVertex3f(edges[2], 0, -edges[3]);
 		glVertex3f(edges[4], 0, -edges[5]);
 		glVertex3f(edges[6], 0, -edges[7]);
-		glEnd();
 
-		// draw target
-		glBegin(GL_POINTS);
-		glPointSize(10);
+		// draw target as tiny cube
 		float *target = planner->getTarget();
-		glVertex3f(target[0], 0, -target[1]);
-		glEnd();
+		float d = .1;
+		glVertex3f(target[0]-d, -d, -target[1]-d);
+		glVertex3f(target[0]-d, -d, -target[1]+d);
+		glVertex3f(target[0]-d, -d, -target[1]+d);
+		glVertex3f(target[0]+d, -d, -target[1]+d);
+		glVertex3f(target[0]+d, -d, -target[1]+d);
+		glVertex3f(target[0]+d, -d, -target[1]-d);
+		glVertex3f(target[0]+d, -d, -target[1]-d);
+		glVertex3f(target[0]-d, -d, -target[1]-d);
+		glVertex3f(target[0]-d, d, -target[1]-d);
+		glVertex3f(target[0]-d, d, -target[1]+d);
+		glVertex3f(target[0]-d, d, -target[1]+d);
+		glVertex3f(target[0]+d, d, -target[1]+d);
+		glVertex3f(target[0]+d, d, -target[1]+d);
+		glVertex3f(target[0]+d, d, -target[1]-d);
+		glVertex3f(target[0]+d, d, -target[1]-d);
+		glVertex3f(target[0]-d, d, -target[1]-d);
+		glVertex3f(target[0]+d, -d, -target[1]+d);
+		glVertex3f(target[0]+d, d, -target[1]+d);
+		glVertex3f(target[0]+d, -d, -target[1]-d);
+		glVertex3f(target[0]+d, d, -target[1]-d);
+		glVertex3f(target[0]-d, -d, -target[1]-d);
+		glVertex3f(target[0]-d, d, -target[1]-d);
+		glVertex3f(target[0]-d, -d, -target[1]+d);
+		glVertex3f(target[0]-d, d, -target[1]+d);
 
+		glEnd();
 		ptr_points_locked = false;
 	}
 }
