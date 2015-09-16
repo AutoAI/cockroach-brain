@@ -13,27 +13,27 @@ void Serial::open() {
 	inverseRadiiPtr = new std::vector<double>;
 
 	// measured values (error on the side of tighter turns)
-	controlVals->push_back(-1);
-	controlVals->push_back(-0.746031746031746);
-	controlVals->push_back(-0.492063492063492);
-	controlVals->push_back(-0.238095238095238);
-	controlVals->push_back(-0.111111111111111);
-	controlVals->push_back(0.142857142857143);
-	controlVals->push_back(0.26984126984127);
-	controlVals->push_back(0.523809523809524);
-	controlVals->push_back(0.777777777777778);
-	controlVals->push_back(1);
+	controlValsPtr->push_back(-1);
+	controlValsPtr->push_back(-0.746031746031746);
+	controlValsPtr->push_back(-0.492063492063492);
+	controlValsPtr->push_back(-0.238095238095238);
+	controlValsPtr->push_back(-0.111111111111111);
+	controlValsPtr->push_back(0.142857142857143);
+	controlValsPtr->push_back(0.26984126984127);
+	controlValsPtr->push_back(0.523809523809524);
+	controlValsPtr->push_back(0.777777777777778);
+	controlValsPtr->push_back(1);
 
-	inverseRadii->push_back(-0.47998920166788);
-	inverseRadii->push_back(-0.398285245315489);
-	inverseRadii->push_back(-0.295786020085001);
-	inverseRadii->push_back(-0.161900458881389);
-	inverseRadii->push_back(-0.129980905282478);
-	inverseRadii->push_back(0.0880996586174463);
-	inverseRadii->push_back(0.183673772921511);
-	inverseRadii->push_back(0.342233651979485);
-	inverseRadii->push_back(0.432027836572337);
-	inverseRadii->push_back(0.53359967963806);
+	inverseRadiiPtr->push_back(-0.47998920166788);
+	inverseRadiiPtr->push_back(-0.398285245315489);
+	inverseRadiiPtr->push_back(-0.295786020085001);
+	inverseRadiiPtr->push_back(-0.161900458881389);
+	inverseRadiiPtr->push_back(-0.129980905282478);
+	inverseRadiiPtr->push_back(0.0880996586174463);
+	inverseRadiiPtr->push_back(0.183673772921511);
+	inverseRadiiPtr->push_back(0.342233651979485);
+	inverseRadiiPtr->push_back(0.432027836572337);
+	inverseRadiiPtr->push_back(0.53359967963806);
 
 	// sleep in hopes that by the time we're done serial connection is good
 	usleep(2000000);
