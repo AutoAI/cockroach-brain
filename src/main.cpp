@@ -36,7 +36,7 @@ float steerToward(float *target) {
 }
 
 int main(int argc, char** argv) {
-	Camera* camera = new Camera(HD720, 15.0);
+	Camera* camera = new Camera(VGA, 15.0);
 	ERRCODE code = camera->init(MODE::QUALITY, 0);
 
 	if (code != SUCCESS) {
@@ -44,6 +44,7 @@ int main(int argc, char** argv) {
 		delete camera;
 		return 1;
 	}
+
 
 	// measured control value - inverse radii pairs
 	std::vector<double> *controlVals = new std::vector<double>;
