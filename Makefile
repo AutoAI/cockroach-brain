@@ -18,7 +18,7 @@ CCFLAGS = -c -g -std=c++11 -I$(CUDAPATH)/include -I$(INCLUDE_DIR)
 NVCCFLAGS = -c -g -std=c++11 -I$(CUDAPATH)/include -I$(INCLUDE_DIR)
 LFLAGS = -lGL -lGLU -lglut -L$(CUDAPATH)/lib -lcuda -lcudart -lm -pthread -L$(ZEDPATH)/lib -lsl_zed -lsl_depthcore -lsl_calibration -lcudpp -lcudpp_hash -rdynamic -lnppc -lnpps -lnppi -lSM -lICE -lX11 -lXext -lXmu -lXi
 
-OBJECTS = main.o CloudViewer.o PointCloud.o HeightMap.o PathPlanner.o
+OBJECTS = main.o CloudViewer.o PointCloud.o HeightMap.o PathPlanner.o Serial.o
 
 vpath %.cpp $(SRC_DIR)
 vpath %.cu $(SRC_DIR)
@@ -37,7 +37,7 @@ $(BIN_DIR)/$(PROJECT_NAME): $(OBJECTS)
 	@echo "Linking..."
 	@$(CC) $(BUILD_DIR)/*.o -o $(BIN_DIR)/$(PROJECT_NAME) $(LFLAGS)
 
-main.o: main.cpp PointCloud.hpp CloudViewer.hpp HeightMap.hpp
+main.o: main.cpp PointCloud.hpp CloudViewer.hpp HeightMap.hpp PathPlanner.hpp Serial.hpp
 	@echo "Compiling main..."
 	@$(CC) $(CCFLAGS) $(SRC_DIR)/main.cpp -o $(BUILD_DIR)/main.o
 
@@ -56,6 +56,10 @@ HeightMap.o: HeightMap.cpp HeightMap.hpp utils.hpp
 PathPlanner.o: PathPlanner.cpp HeightMap.hpp
 	@echo "Compiling PathPlanner..."
 	@$(CC) $(CCFLAGS) $(SRC_DIR)/PathPlanner.cpp -o $(BUILD_DIR)/PathPlanner.o
+
+Serial.o: Serial.cpp Serial.hpp
+	@echo "Compiling Serial..."
+	@$(CC) $(CCFLAGS) $(SRC_DIR)/Serial.cpp -o $(BUILD_DIR)/Serial.o
 
 clean:
 	@rm $(BUILD_DIR)/*.o
