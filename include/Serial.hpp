@@ -18,8 +18,8 @@ public:
 
 private:
 	// measured values for interpolation
-	std::vector<double> *controlValsPtr;
-	std::vector<double> *inverseRadiiPtr;
+	static std::vector<double> *controlValsPtr;
+	static std::vector<double> *inverseRadiiPtr;
 
 	static void write(char controlVal);
 };
