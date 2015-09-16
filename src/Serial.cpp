@@ -4,6 +4,10 @@
 
 #include <unistd.h>
 
+FILE* Serial::file;
+std::vector<double>* Serial::controlValsPtr;
+std::vector<double>* Serial::inverseRadiiPtr;
+
 void Serial::open() {
 	file = fopen("/dev/ttyACM11","w");
 	if(file == NULL) {
