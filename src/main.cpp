@@ -21,7 +21,7 @@ using namespace sl::zed;
 using namespace std;
 
 float steerToward(float *target) {
-
+	return 0;
 }
 
 int main() {

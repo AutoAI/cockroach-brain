@@ -63,7 +63,7 @@ static void Serial::steer(float inverseRadius) {
 		if(inverseRadius < inverseRadii[0]) {
 			controlVal = controlVals[0];
 		} else {
-			controlVal = controlVals[controlVals.size()]
+			controlVal = controlVals[controlVals.size()-1];
 		}
 	}
 
