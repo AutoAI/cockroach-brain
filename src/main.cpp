@@ -17,6 +17,10 @@
 #include "PathPlanner.hpp"
 #include "Serial.hpp"
 
+// temp
+#include <unistd.h>
+// end temp
+
 using namespace sl::zed;
 using namespace std;
 
@@ -25,6 +29,13 @@ float steerToward(float *target) {
 }
 
 int main() {
+	// temp
+	Serial.steer(-.4);
+	usleep(2000000);
+	Serial.steer(.4);
+	return;
+	// end temp
+
 	Camera* camera = new Camera(HD720, 15.0);
 	ERRCODE code = camera->init(MODE::QUALITY, 0);
 
