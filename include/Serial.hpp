@@ -21,4 +21,4 @@ private:
 	std::vector<double> *inverseRadiiPtr;
 
 	static void write(char controlVal);
-}
+};
