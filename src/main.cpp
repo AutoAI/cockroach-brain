@@ -30,9 +30,11 @@ float steerToward(float *target) {
 
 int main() {
 	// temp
+	Serial::open();
 	Serial::steer(-.4);
 	usleep(2000000);
 	Serial::steer(.4);
+	Serial::close();
 	return 0;
 	// end temp
 
