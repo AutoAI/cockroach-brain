@@ -30,10 +30,10 @@ float steerToward(float *target) {
 
 int main() {
 	// temp
-	Serial.steer(-.4);
+	Serial::steer(-.4);
 	usleep(2000000);
-	Serial.steer(.4);
-	return;
+	Serial::steer(.4);
+	return 0;
 	// end temp
 
 	Camera* camera = new Camera(HD720, 15.0);
