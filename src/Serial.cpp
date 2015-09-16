@@ -4,7 +4,7 @@
 
 #include <unistd.h>
 
-static void Serial::open() {
+void Serial::open() {
 	file = fopen("/dev/ttyACM11","w");
 	if(file == NULL) {
 		printf("failed to open serial port\n");
@@ -39,11 +39,11 @@ static void Serial::open() {
 	usleep(2000000);
 }
 
-static void Serial::close() {
+void Serial::close() {
 	fclose(file);
 }
 
-static void Serial::steer(float inverseRadius) {
+void Serial::steer(float inverseRadius) {
 	std::vector<double> controlVals = *controlValsPtr;
 	std::vector<double> inverseRadii = *inverseRadiiPtr;
 	// linear search the list of controlval-radius pairs for correct span
@@ -70,19 +70,19 @@ static void Serial::steer(float inverseRadius) {
 	write(0x40 | char((controlVal + 1) * 31.5));
 }
 
-static void Serial::gas(float intensity) {
+void Serial::gas(float intensity) {
 	write(0x80 | char((1 - intensity) * 63));
 }
 
-static void Serial::brake(float intensity) {
+void Serial::brake(float intensity) {
 	write(0xc0 | char((intensity) * 63));
 }
 
-static void Serial::kill() {
+void Serial::kill() {
 	write(0x00);
 }
 
-static void Serial::write(char controlByte) {
+void Serial::write(char controlByte) {
 	size_t result = fwrite(&controlByte, 1, 1, file);
 	if(result != 1) {
 		printf("failed to write a value to serial\n");
