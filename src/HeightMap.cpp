@@ -40,25 +40,53 @@ void HeightMap::clear() {
 void HeightMap::insert(POINT3D p) {
 	// make sure the point doesn't lie outside the map
 	int z_index = (int)(p.z * depth / VIEW_DEPTH);
-	if(z_index < 0 || z_index >= depth) {
+	if(z_index <= 0 || z_index >= depth) {
 		return;
 	}
 	int x_index = (int)(p.x * width / VIEW_WIDTH + width / 2);
-	if(x_index < 0 || x_index >= width) {
+	if(x_index <= 0 || x_index >= width) {
 		return;
 	}
-	int i = z_index * width + x_index;
+	int i1 = z_index * width + x_index;
+	int i2 = z_index * width + x_index - 1;
+	int i3 = (z_index - 1) * width + x_index;
+	int i4 = (z_index - 1) * width + x_index - 1;
 
 	// update height - height for a cell is always max point height
-	if(p.y > pc[i].y) {
-		pc[i].y = p.y;
+	if(p.y > pc[i1].y) {
+		pc[i1].y = p.y;
+	}
+	if(p.y > pc[i2].y) {
+		pc[i2].y = p.y;
+	}
+	if(p.y > pc[i3].y) {
+		pc[i3].y = p.y;
+	}
+	if(p.y > pc[i4].y) {
+		pc[i4].y = p.y;
 	}
 
 	// add color into the cumulative average
-	pc[i].r = (pc[i].r * frequencies[i] + p.r) / (frequencies[i] + 1);
-	pc[i].g = (pc[i].g * frequencies[i] + p.g) / (frequencies[i] + 1);
-	pc[i].b = (pc[i].b * frequencies[i] + p.b) / (frequencies[i] + 1);
-	frequencies[i]++;
+	pc[i1].r = (pc[i1].r * frequencies[i1] + p.r) / (frequencies[i1] + 1);
+	pc[i1].g = (pc[i1].g * frequencies[i1] + p.g) / (frequencies[i1] + 1);
+	pc[i1].b = (pc[i1].b * frequencies[i1] + p.b) / (frequencies[i1] + 1);
+
+	pc[i2].r = (pc[i2].r * frequencies[i2] + p.r) / (frequencies[i2] + 1);
+	pc[i2].g = (pc[i2].g * frequencies[i2] + p.g) / (frequencies[i2] + 1);
+	pc[i2].b = (pc[i2].b * frequencies[i2] + p.b) / (frequencies[i2] + 1);
+
+	pc[i3].r = (pc[i3].r * frequencies[i3] + p.r) / (frequencies[i3] + 1);
+	pc[i3].g = (pc[i3].g * frequencies[i3] + p.g) / (frequencies[i3] + 1);
+	pc[i3].b = (pc[i3].b * frequencies[i3] + p.b) / (frequencies[i3] + 1);
+
+	pc[i4].r = (pc[i4].r * frequencies[i4] + p.r) / (frequencies[i4] + 1);
+	pc[i4].g = (pc[i4].g * frequencies[i4] + p.g) / (frequencies[i4] + 1);
+	pc[i4].b = (pc[i4].b * frequencies[i4] + p.b) / (frequencies[i4] + 1);
+
+	frequencies[i1]++;
+	frequencies[i2]++;
+	frequencies[i3]++;
+	frequencies[i4]++;
 }
 
 POINT3D HeightMap::point(size_t i) {

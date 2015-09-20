@@ -62,18 +62,16 @@ float* PathPlanner::getTarget() {
 
 // Definitely a CUDA candidate
 float PathPlanner::percentageBad(size_t x1, size_t z1, size_t x2, size_t z2) {
-	int numBad = 0;
-	int skipped = 0;
+	float numBad = 0;
 	for(int i = z1; i <= z2; i++) {
 		for(int j = x1; j <= x2; j++) {
 			if(hm->frequencies[i * hm->width + j] == 0) {
-				skipped++;
-				numBad++;
+				numBad+= .75;
 			} else if(!hm->sobel[i * hm->width + j]) {
 				numBad++;
 			}
 		}
 	}
 	printf("x1: %d, z1: %d, x2: %d, z2: %d\n", x1, z1, x2, z2);
-	return float(numBad) / (float((z2 - z1 + 1) * (x2 - x1 + 1) - skipped) * 3);
+	return float(numBad) / (float((z2 - z1 + 1) * (x2 - x1 + 1)) * 3);
 }

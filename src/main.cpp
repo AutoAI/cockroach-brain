@@ -61,7 +61,7 @@ int main() {
 		cloud->fill(imLeft.data, (float*) depth.data, camera->getParameters());
 		cloud->fillHeightMap(heightMap);
 
-		heightMap->calcSobel(0.5);
+		heightMap->calcSobel(0.75);
 		planner->calcEdges();
 		steerToward(planner->getTarget());
 
