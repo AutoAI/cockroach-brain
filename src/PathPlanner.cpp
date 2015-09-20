@@ -22,25 +22,27 @@ void PathPlanner::calcEdges() {
 	/*
 	edges arranged like so:
 	(x2, z2)----------------(x4, z4)
-	    |			    |
-	    |			    |
-	    |			    |
+	    |                       |
+	    |                       |
+	    |                       |
 	(x1, z1)----------------(x3, z3)
 	with top as vehicle forward
 	*/
 	const int pathWidth = PATH_WIDTH * hm->width / VIEW_WIDTH;
 	const int lookaheadMin = LOOKAHEAD_MIN * hm->depth / VIEW_DEPTH;
-	const int lookaheadMax = LOOKAHEAD_MAX * hm->depth / VIEW_DEPTH; 
+	const int lookaheadMax = LOOKAHEAD_MAX * hm->depth / VIEW_DEPTH;
+	const float middleI = (hm->width - pathWidth) / 2;
 	float bestI = 0;
-	float bestBad = 1;
+	float bestBad = 2;
 	float thisBad;
 	for(int i = 0; i < hm->width - pathWidth; i++) {
-		thisBad = percentageBad(i, lookaheadMin, pathWidth + i, lookaheadMax);
+		thisBad = percentageBad(i, lookaheadMin, pathWidth + i, lookaheadMax) + float((i - middleI) * (i - middleI)) / (middleI * middleI);
 		if(thisBad < bestBad) {
 			bestBad = thisBad;
 			bestI = i;
 		} 
 	}
+	// set x values
 	edges[0] = (VIEW_WIDTH / hm->width) * (-hm->width/2 + bestI);
 	edges[2] = (VIEW_WIDTH / hm->width) * (-hm->width/2 + bestI);
 	edges[4] = (VIEW_WIDTH / hm->width) * (-hm->width/2 + pathWidth + bestI);
