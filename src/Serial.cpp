@@ -43,7 +43,7 @@ void Serial::open() {
 
 	// sleep in hopes that by the time we're done serial connection is good
 	printf("waiting... \n");
-	usleep(2000000);
+	usleep(500000);
 }
 
 void Serial::close() {

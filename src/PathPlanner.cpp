@@ -36,7 +36,7 @@ void PathPlanner::calcEdges() {
 	float bestBad = 2;
 	float thisBad;
 	for(int i = 0; i < hm->width - pathWidth; i++) {
-		thisBad = percentageBad(i, lookaheadMin, pathWidth + i, lookaheadMax) + float((i - middleI) * (i - middleI)) / (middleI * middleI);
+		thisBad = percentageBad(i, lookaheadMin, pathWidth + i, lookaheadMax) + .0625 * float((i - middleI) * (i - middleI)) / (middleI * middleI);
 		if(thisBad < bestBad) {
 			bestBad = thisBad;
 			bestI = i;
@@ -66,7 +66,7 @@ float PathPlanner::percentageBad(size_t x1, size_t z1, size_t x2, size_t z2) {
 	for(int i = z1; i <= z2; i++) {
 		for(int j = x1; j <= x2; j++) {
 			if(hm->frequencies[i * hm->width + j] == 0) {
-				numBad+= .75;
+				numBad+= .75 * ;
 			} else if(!hm->sobel[i * hm->width + j]) {
 				numBad++;
 			}

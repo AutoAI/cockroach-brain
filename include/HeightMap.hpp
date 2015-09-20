@@ -3,7 +3,7 @@
 
 #pragma once
 
-#define VIEW_DEPTH 10.0f
+#define VIEW_DEPTH 5.0f
 #define VIEW_WIDTH 5.0f
 
 #include <stdint.h>

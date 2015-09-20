@@ -43,7 +43,7 @@ int main() {
 	int width = camera->getImageSize().width;
 	int height = camera->getImageSize().height;
 	PointCloud *cloud = new PointCloud(width, height);
-	HeightMap *heightMap = new HeightMap(80, 160);
+	HeightMap *heightMap = new HeightMap(128, 128);
 	CloudViewer *viewer = new CloudViewer();
 	PathPlanner *planner = new PathPlanner(heightMap);
 	int key = ' ';
@@ -61,7 +61,7 @@ int main() {
 		cloud->fill(imLeft.data, (float*) depth.data, camera->getParameters());
 		cloud->fillHeightMap(heightMap);
 
-		heightMap->calcSobel(0.75);
+		heightMap->calcSobel(0.6);
 		planner->calcEdges();
 		steerToward(planner->getTarget());
 
