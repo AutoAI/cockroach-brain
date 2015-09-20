@@ -3,6 +3,7 @@
 #include "PathPlanner.hpp"
 
 #include <iostream>
+#include <math.h>
 
 PathPlanner::PathPlanner(HeightMap *hm) {
 	this->hm = hm;
@@ -64,10 +65,9 @@ float* PathPlanner::getTarget() {
 float PathPlanner::percentageBad(size_t x1, size_t z1, size_t x2, size_t z2) {
 	float numBad = 0;
 	float weight;
-	for(int i = z1; i <= z2; i++) {
-		weight = (2 * i - (z1 + z2)) / (z1 + z2);
-		weight *= weight;
-		for(int j = x1; j <= x2; j++) {
+	for(int j = x1; j <= x2; j++) {
+		weight = -(j - x1) * (j - x2);
+		for(int i = z1; i <= z2; i++) {
 			if(hm->frequencies[i * hm->width + j] == 0) {
 				numBad+= weight;
 			} else if(!hm->sobel[i * hm->width + j]) {
@@ -76,5 +76,5 @@ float PathPlanner::percentageBad(size_t x1, size_t z1, size_t x2, size_t z2) {
 		}
 	}
 	printf("x1: %d, z1: %d, x2: %d, z2: %d\n", x1, z1, x2, z2);
-	return float(numBad) / (float((z2 - z1 + 1) * (x2 - x1 + 1)) * 3);
+	return float(numBad) / float((z2 - z1 + 1) * (x2 - x1 + 1));
 }
