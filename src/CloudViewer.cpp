@@ -315,12 +315,12 @@ void CloudViewer::VisualizePlanner() {
 		glVertex3f(edges[2], 0, -edges[3]);
 
 		glVertex3f(edges[2], 0, -edges[3]);
-		glVertex3f(edges[4], 0, -edges[5]);
+		glVertex3f(edges[6], 0, -edges[7]);
 
 		glVertex3f(edges[4], 0, -edges[5]);
 		glVertex3f(edges[6], 0, -edges[7]);
 
-		glVertex3f(edges[6], 0, -edges[7]);
+		glVertex3f(edges[4], 0, -edges[5]);
 		glVertex3f(edges[0], 0, -edges[1]);
 
 		// draw target as tiny cube

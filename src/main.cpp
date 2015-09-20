@@ -21,7 +21,6 @@ using namespace sl::zed;
 using namespace std;
 
 float steerToward(float *target) {
-	printf("steer\n");
 	float x = target[0];
 	float y = target[1];
 
