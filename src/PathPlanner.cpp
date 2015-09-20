@@ -33,7 +33,7 @@ void PathPlanner::calcEdges() {
 	const int lookaheadMax = LOOKAHEAD_MAX * hm->depth / VIEW_DEPTH;
 	const float middleI = (hm->width - pathWidth) / 2;
 	float bestI = 0;
-	float bestBad = 2;
+	float bestBad = 69.69;
 	float thisBad;
 	for(int i = 0; i < hm->width - pathWidth; i++) {
 		thisBad = percentageBad(i, lookaheadMin, pathWidth + i, lookaheadMax) + .0625 * float((i - middleI) * (i - middleI)) / (middleI * middleI);
@@ -63,12 +63,15 @@ float* PathPlanner::getTarget() {
 // Definitely a CUDA candidate
 float PathPlanner::percentageBad(size_t x1, size_t z1, size_t x2, size_t z2) {
 	float numBad = 0;
+	float weight;
 	for(int i = z1; i <= z2; i++) {
+		weight = (2 * i - (z1 + z2)) / (z1 + z2);
+		weight *= weight;
 		for(int j = x1; j <= x2; j++) {
 			if(hm->frequencies[i * hm->width + j] == 0) {
-				numBad+= .75 * ;
+				numBad+= weight;
 			} else if(!hm->sobel[i * hm->width + j]) {
-				numBad++;
+				numBad+= weight;
 			}
 		}
 	}
