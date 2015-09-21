@@ -65,7 +65,7 @@ float* PathPlanner::getTarget() {
 float PathPlanner::percentageBad(size_t x1, size_t z1, size_t x2, size_t z2) {
 	float numBad = 0;
 	float weight;
-	const float c = .75;
+	const float c = .95;
 	for(int j = x1; j <= x2; j++) {
 		weight = -(j - c * x1) * (j - c * x2);
 		for(int i = z1; i <= z2; i++) {
