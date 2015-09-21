@@ -3,7 +3,7 @@
 #pragma once
 
 #define LOOKAHEAD_MIN 2.0f // meters
-#define LOOKAHEAD_MAX 3.0f
+#define LOOKAHEAD_MAX 2.5f
 #define PATH_WIDTH 2.0f
 
 #include "HeightMap.hpp"
